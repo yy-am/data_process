@@ -1,0 +1,7 @@
+from __future__ import annotations
+
+from app.agents.template_identification_agent import ConfigurableTemplateIdentificationAgent
+
+
+class NotImplementedTemplateIdentificationAgent(ConfigurableTemplateIdentificationAgent):
+    pass

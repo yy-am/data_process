@@ -1,0 +1,30 @@
+{
+  "ruleCode": "ORDER_FULFILLMENT_JP_STANDARD",
+  "ruleName": "JP order fulfillment mapping",
+  "sceneCode": "FULFILLMENT",
+  "countryCode": "JP",
+  "templateCode": "ORDER_FULFILLMENT_STANDARD_JP",
+  "sourceType": "EXCEL",
+  "status": "ACTIVE",
+  "priority": 92,
+  "version": 1,
+  "mappingDsl": {
+    "version": 1,
+    "mappings": [
+      {"targetField": "order_no", "type": "direct", "sourceField": "Order ID"},
+      {"targetField": "booking_date", "type": "to_date", "sourceField": "Order Date"},
+      {"targetField": "consignee_name", "type": "direct", "sourceField": "Recipient Name"},
+      {"targetField": "zip_code", "type": "trim", "sourceField": "Delivery Postal Code"},
+      {"targetField": "full_address", "type": "concat", "sourceField": ["Delivery Address Line 1", "Delivery Address Line 2"]},
+      {"targetField": "mobile", "type": "direct", "sourceField": "Contact Phone"},
+      {"targetField": "item_code", "type": "direct", "sourceField": "SKU"},
+      {"targetField": "item_desc", "type": "direct", "sourceField": "Product Name"},
+      {"targetField": "qty", "type": "to_number", "sourceField": "Quantity"},
+      {"targetField": "unit_amount", "type": "to_number", "sourceField": "Unit Price"},
+      {"targetField": "settle_ccy", "type": "trim_upper", "sourceField": "Currency"},
+      {"targetField": "logistics_vendor", "type": "direct", "sourceField": "Carrier"},
+      {"targetField": "waybill_no", "type": "direct", "sourceField": "Tracking Number"},
+      {"targetField": "dispatch_date", "type": "to_date", "sourceField": "Ship Date"}
+    ]
+  }
+}

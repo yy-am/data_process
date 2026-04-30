@@ -1,0 +1,49 @@
+{
+  "ruleCode": "REBATE_MX_REBATE_MX_TEMPLATE_AUTO",
+  "ruleName": "REBATE MX auto generated mapping",
+  "sceneCode": "REBATE",
+  "countryCode": "MX",
+  "templateCode": "REBATE_MX_TEMPLATE",
+  "sourceType": "EXCEL",
+  "status": "ACTIVE",
+  "priority": 80,
+  "version": 1,
+  "ruleSummaryText": "Currency ??????????Decision Dt ???",
+  "mappingDsl": {
+    "version": 1,
+    "mappings": [
+      {
+        "targetField": "case_no",
+        "type": "direct",
+        "sourceField": "Ticket"
+      },
+      {
+        "targetField": "channel_partner",
+        "type": "direct",
+        "sourceField": "Distributor"
+      },
+      {
+        "targetField": "market",
+        "type": "direct",
+        "sourceField": "Geo"
+      },
+      {
+        "targetField": "payout_currency",
+        "type": "direct",
+        "sourceField": "Txn Curr"
+      },
+      {
+        "targetField": "payout_amount",
+        "type": "direct",
+        "sourceField": "Total Back"
+      },
+      {
+        "targetField": "review_date",
+        "type": "direct",
+        "sourceField": "Decision Dt"
+      }
+    ]
+  },
+  "examples": [],
+  "instructionText": "Currency ??????????Decision Dt ???"
+}

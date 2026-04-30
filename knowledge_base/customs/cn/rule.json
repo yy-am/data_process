@@ -1,0 +1,42 @@
+{
+  "ruleCode": "CUSTOMS_DECLARATION_CN_STANDARD",
+  "ruleName": "CN customs declaration mapping",
+  "sceneCode": "CUSTOMS",
+  "countryCode": "CN",
+  "templateCode": "CUSTOMS_DECLARATION_STANDARD_CN",
+  "sourceType": "EXCEL",
+  "status": "ACTIVE",
+  "priority": 95,
+  "version": 1,
+  "mappingDsl": {
+    "version": 1,
+    "mappings": [
+      {"targetField": "declaration_no", "type": "direct", "sourceField": "Declaration No"},
+      {"targetField": "declaration_date", "type": "to_date", "sourceField": "Declaration Date"},
+      {"targetField": "exporter_name", "type": "direct", "sourceField": "Exporter"},
+      {"targetField": "importer_name", "type": "direct", "sourceField": "Importer"},
+      {"targetField": "hs_code", "type": "trim", "sourceField": "HS Code"},
+      {"targetField": "declared_value", "type": "to_number", "sourceField": "Declared Value"}
+    ]
+  },
+  "examples": [
+    {
+      "source": {
+        "Declaration No": "CN-2026-0101",
+        "Declaration Date": "2026-04-20",
+        "Exporter": "Shenzhen Trading Co",
+        "Importer": "Shanghai Importer Ltd",
+        "HS Code": "847130",
+        "Declared Value": "88000"
+      },
+      "target": {
+        "declaration_no": "CN-2026-0101",
+        "declaration_date": "2026-04-20",
+        "exporter_name": "Shenzhen Trading Co",
+        "importer_name": "Shanghai Importer Ltd",
+        "hs_code": "847130",
+        "declared_value": 88000
+      }
+    }
+  ]
+}

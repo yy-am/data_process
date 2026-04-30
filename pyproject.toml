@@ -1,0 +1,15 @@
+[project]
+name = "data-process-poc"
+version = "0.1.0"
+description = "Python PoC for AI-assisted data processing."
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.116.0,<1.0.0",
+    "pydantic>=2.11.0,<3.0.0",
+    "python-multipart>=0.0.20,<1.0.0",
+    "uvicorn>=0.35.0,<1.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"

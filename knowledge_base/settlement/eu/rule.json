@@ -1,0 +1,45 @@
+{
+  "ruleCode": "VENDOR_SETTLEMENT_EU_STANDARD",
+  "ruleName": "EU vendor settlement mapping",
+  "sceneCode": "SETTLEMENT",
+  "countryCode": "EU",
+  "templateCode": "VENDOR_SETTLEMENT_STANDARD_EU",
+  "sourceType": "EXCEL",
+  "status": "ACTIVE",
+  "priority": 88,
+  "version": 1,
+  "mappingDsl": {
+    "version": 1,
+    "mappings": [
+      {"targetField": "settlement_no", "type": "direct", "sourceField": "Settlement No"},
+      {"targetField": "settlement_date", "type": "to_date", "sourceField": "Settlement Date"},
+      {"targetField": "vendor_name", "type": "direct", "sourceField": "Vendor Name"},
+      {"targetField": "country", "type": "trim_upper", "sourceField": "Country"},
+      {"targetField": "net_amount", "type": "to_number", "sourceField": "Net Amount"},
+      {"targetField": "tax_amount", "type": "to_number", "sourceField": "Tax Amount"},
+      {"targetField": "total_amount", "type": "to_number", "sourceField": "Total Amount"}
+    ]
+  },
+  "examples": [
+    {
+      "source": {
+        "Settlement No": "SET-EU-001",
+        "Settlement Date": "2026-04-05",
+        "Vendor Name": "Euro Parts GmbH",
+        "Country": "DE",
+        "Net Amount": "1000",
+        "Tax Amount": "190",
+        "Total Amount": "1190"
+      },
+      "target": {
+        "settlement_no": "SET-EU-001",
+        "settlement_date": "2026-04-05",
+        "vendor_name": "Euro Parts GmbH",
+        "country": "DE",
+        "net_amount": 1000,
+        "tax_amount": 190,
+        "total_amount": 1190
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "ruleCode": "PAYMENT_INVOICE_US_STANDARD",
+  "ruleName": "US payment invoice mapping",
+  "sceneCode": "PAYMENT",
+  "countryCode": "US",
+  "templateCode": "PAYMENT_INVOICE_STANDARD_US",
+  "sourceType": "EXCEL",
+  "status": "ACTIVE",
+  "priority": 90,
+  "version": 1,
+  "mappingDsl": {
+    "version": 1,
+    "mappings": [
+      {"targetField": "invoice_no", "type": "direct", "sourceField": "Invoice No"},
+      {"targetField": "invoice_date", "type": "to_date", "sourceField": "Invoice Date"},
+      {"targetField": "buyer_name", "type": "direct", "sourceField": "Buyer Name"},
+      {"targetField": "seller_name", "type": "direct", "sourceField": "Seller Name"},
+      {"targetField": "currency", "type": "trim_upper", "sourceField": "Currency"},
+      {"targetField": "amount", "type": "to_number", "sourceField": "Amount"}
+    ]
+  },
+  "examples": [
+    {
+      "source": {
+        "Invoice No": "INV-1001",
+        "Invoice Date": "2026-04-08",
+        "Buyer Name": "Acme LLC",
+        "Seller Name": "Global Supplies Ltd",
+        "Currency": "usd",
+        "Amount": "1200.50"
+      },
+      "target": {
+        "invoice_no": "INV-1001",
+        "invoice_date": "2026-04-08",
+        "buyer_name": "Acme LLC",
+        "seller_name": "Global Supplies Ltd",
+        "currency": "USD",
+        "amount": 1200.5
+      }
+    }
+  ]
+}
