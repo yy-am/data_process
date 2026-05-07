@@ -10,5 +10,7 @@ server.err.log
 
 storage/
 tmp_catalog_spec.xlsx
+reports/
+scripts/model_eval_config.json
 
 .DS_Store

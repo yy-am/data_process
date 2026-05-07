@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import socket
 from dataclasses import dataclass
 from typing import Any
 from urllib import error, request
@@ -87,6 +88,18 @@ class RuntimeConfiguredTemplateIdentificationClient:
                 code="LLM_CONNECTION_ERROR",
                 message=f"Failed to reach LLM provider: {exc.reason}",
                 status_code=502,
+            ) from exc
+        except TimeoutError as exc:
+            raise DomainError(
+                code="LLM_TIMEOUT",
+                message="LLM provider request timed out.",
+                status_code=504,
+            ) from exc
+        except socket.timeout as exc:
+            raise DomainError(
+                code="LLM_TIMEOUT",
+                message="LLM provider request timed out.",
+                status_code=504,
             ) from exc
 
         try:
