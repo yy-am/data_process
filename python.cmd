@@ -7,15 +7,15 @@ if exist "%SCRIPT_DIR%\.venv\Scripts\python.exe" (
   exit /b %errorlevel%
 )
 
-where python >nul 2>nul
+where python.exe >nul 2>nul
 if %errorlevel%==0 (
-  python %*
+  python.exe %*
   exit /b %errorlevel%
 )
 
-where py >nul 2>nul
+where py.exe >nul 2>nul
 if %errorlevel%==0 (
-  py %*
+  py.exe %*
   exit /b %errorlevel%
 )
 
