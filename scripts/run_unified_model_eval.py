@@ -221,23 +221,44 @@ def normalize_list(values: Any) -> set[str]:
     return normalized
 
 
-def call_openai_compatible_chat(config: ModelConfig, system_prompt: str, user_prompt: str) -> dict[str, Any]:
+def mask_api_key(api_key: str) -> str:
+    if len(api_key) <= 10:
+        return "*" * len(api_key)
+    return f"{api_key[:6]}***{api_key[-4:]}"
+
+
+def build_chat_request_payload(system_prompt: str, user_prompt: str, model_name: str) -> dict[str, Any]:
+    return {
+        "model": model_name,
+        "temperature": 0,
+        "response_format": {"type": "json_object"},
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+    }
+
+
+def build_chat_request_debug(config: ModelConfig, system_prompt: str, user_prompt: str) -> dict[str, Any]:
+    payload = build_chat_request_payload(system_prompt, user_prompt, config.model_name)
+    return {
+        "endpointUrl": config.endpoint_url,
+        "provider": config.provider,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {mask_api_key(config.api_key)}",
+        },
+        "body": payload,
+    }
+
+
+def call_openai_compatible_chat(config: ModelConfig, system_prompt: str, user_prompt: str) -> tuple[dict[str, Any], dict[str, Any]]:
+    request_debug = build_chat_request_debug(config, system_prompt, user_prompt)
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {config.api_key}",
     }
-    body = json.dumps(
-        {
-            "model": config.model_name,
-            "temperature": 0,
-            "response_format": {"type": "json_object"},
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-        },
-        ensure_ascii=False,
-    ).encode("utf-8")
+    body = json.dumps(request_debug["body"], ensure_ascii=False).encode("utf-8")
     http_request = request.Request(
         url=config.endpoint_url,
         data=body,
@@ -257,7 +278,7 @@ def call_openai_compatible_chat(config: ModelConfig, system_prompt: str, user_pr
         raise RuntimeError(f"{config.label} request timed out") from exc
     except socket.timeout as exc:
         raise RuntimeError(f"{config.label} request timed out") from exc
-    return json.loads(payload)
+    return json.loads(payload), request_debug
 
 
 def extract_text(payload: dict[str, Any]) -> str:
@@ -491,7 +512,7 @@ def evaluate_prompt_case(config: ModelConfig, suite_type: str, case: dict[str, A
     else:
         raise RuntimeError(f"Unsupported prompt suite type {suite_type}")
 
-    raw_payload = call_openai_compatible_chat(config, system_prompt, user_prompt)
+    raw_payload, request_debug = call_openai_compatible_chat(config, system_prompt, user_prompt)
     raw_text = extract_text(raw_payload)
     parsed = parse_json_text(raw_text)
 
@@ -509,7 +530,10 @@ def evaluate_prompt_case(config: ModelConfig, suite_type: str, case: dict[str, A
         "outcome": "passed" if score >= 80 else "needs_review",
         "expected": case["expected"],
         "actual": parsed,
-        "scoreDetails": score_details,
+        "scoreDetails": {
+            **score_details,
+            "requestDebug": request_debug,
+        },
         "rawText": raw_text,
     }
 
@@ -637,7 +661,15 @@ def write_markdown_report(
                 lines.append(
                     f"| {item['caseId']} | {item['score']} | {format_outcome_label(item['outcome'])} | {str(note).replace('|', '/')} |"
                 )
-            lines.append("")
+                request_debug = item["scoreDetails"].get("requestDebug")
+                if request_debug:
+                    request_debug_text = json.dumps(request_debug, ensure_ascii=False, indent=2)
+                    lines.append("")
+                    lines.append(f"请求入参：`{item['caseId']}`")
+                    lines.append("```json")
+                    lines.append(request_debug_text)
+                    lines.append("```")
+                lines.append("")
 
     path.write_text("\n".join(lines), encoding="utf-8")
 
