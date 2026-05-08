@@ -35,6 +35,7 @@ class RuntimeConfigService:
             endpoint_url=request.endpoint_url,
             api_key_env_var=request.api_key_env_var,
             api_key=request.api_key,
+            include_response_format=request.include_response_format,
         )
         runtime_config = self.runtime_config_repository.update_template_identification_config(config)
         return self._to_response(runtime_config.template_identification_client)
@@ -56,6 +57,7 @@ class RuntimeConfigService:
             endpoint_url=request.endpoint_url,
             api_key_env_var=request.api_key_env_var,
             api_key=request.api_key,
+            include_response_format=request.include_response_format,
         )
         runtime_config = self.runtime_config_repository.update_rule_draft_config(config)
         return self._to_rule_draft_response(runtime_config.rule_draft_client)
@@ -77,6 +79,7 @@ class RuntimeConfigService:
             endpoint_url=request.endpoint_url,
             api_key_env_var=request.api_key_env_var,
             api_key=request.api_key,
+            include_response_format=request.include_response_format,
         )
         runtime_config = self.runtime_config_repository.update_image_ocr_config(config)
         return self._to_image_ocr_response(runtime_config.image_ocr_client)
@@ -93,6 +96,7 @@ class RuntimeConfigService:
             endpointUrl=config.endpoint_url,
             apiKeyEnvVar=config.api_key_env_var,
             hasApiKey=bool(config.api_key),
+            includeResponseFormat=config.include_response_format,
         )
 
     def _to_rule_draft_response(
@@ -107,6 +111,7 @@ class RuntimeConfigService:
             endpointUrl=config.endpoint_url,
             apiKeyEnvVar=config.api_key_env_var,
             hasApiKey=bool(config.api_key),
+            includeResponseFormat=config.include_response_format,
         )
 
     def _to_image_ocr_response(
@@ -121,4 +126,5 @@ class RuntimeConfigService:
             endpointUrl=config.endpoint_url,
             apiKeyEnvVar=config.api_key_env_var,
             hasApiKey=bool(config.api_key),
+            includeResponseFormat=config.include_response_format,
         )

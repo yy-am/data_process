@@ -55,17 +55,18 @@ class RuntimeConfiguredTemplateIdentificationClient:
         if api_key:
             headers["Authorization"] = f"Bearer {api_key}"
 
-        body = json.dumps(
-            {
-                "model": config.model,
-                "temperature": 0,
-                "response_format": {"type": "json_object"},
-                "messages": [
-                    {"role": "system", "content": request_payload.system_prompt},
-                    {"role": "user", "content": request_payload.user_prompt},
-                ],
-            }
-        ).encode("utf-8")
+        payload = {
+            "model": config.model,
+            "temperature": 0,
+            "messages": [
+                {"role": "system", "content": request_payload.system_prompt},
+                {"role": "user", "content": request_payload.user_prompt},
+            ],
+        }
+        if config.include_response_format:
+            payload["response_format"] = {"type": "json_object"}
+
+        body = json.dumps(payload).encode("utf-8")
         http_request = request.Request(
             url=config.endpoint_url,
             data=body,

@@ -39,6 +39,28 @@
 1. `unified_model_eval_config.local.json`
 2. 若不存在，再读取 `unified_model_eval_config.json`
 
+### 模型兼容开关
+
+- 对于兼容 OpenAI `response_format` 的模型，保持：
+  `includeResponseFormat: true`
+- 如果供应商文档里的请求体没有 `response_format`，或者调用时出现协议不兼容报错，可改成：
+  `includeResponseFormat: false`
+
+示例：
+
+```json
+{
+  "label": "glm-5.1",
+  "provider": "openai_compatible_chat",
+  "endpointUrl": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+  "modelName": "glm-5.1",
+  "apiKey": "your-key",
+  "includeResponseFormat": false,
+  "timeoutSeconds": 120,
+  "enabled": true
+}
+```
+
 ## 首次运行检查
 
 另一台电脑首次运行前，请先确认：

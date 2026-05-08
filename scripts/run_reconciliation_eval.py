@@ -54,6 +54,7 @@ class ModelConfig:
     model_name: str
     api_key: str
     timeout_seconds: int
+    include_response_format: bool = True
 
 
 @dataclass(frozen=True)
@@ -97,6 +98,7 @@ def load_model_configs(config_file: Path) -> list[ModelConfig]:
                 model_name=item["modelName"],
                 api_key=api_key,
                 timeout_seconds=int(item.get("timeoutSeconds", 90)),
+                include_response_format=bool(item.get("includeResponseFormat", True)),
             )
         )
     return configs
@@ -121,18 +123,17 @@ def call_openai_compatible_chat(config: ModelConfig, system_prompt: str, user_pr
         "Content-Type": "application/json",
         "Authorization": f"Bearer {config.api_key}",
     }
-    body = json.dumps(
-        {
-            "model": config.model_name,
-            "temperature": 0,
-            "response_format": {"type": "json_object"},
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-        },
-        ensure_ascii=False,
-    ).encode("utf-8")
+    payload = {
+        "model": config.model_name,
+        "temperature": 0,
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+    }
+    if config.include_response_format:
+        payload["response_format"] = {"type": "json_object"}
+    body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
     http_request = request.Request(
         url=config.endpoint_url,
         data=body,

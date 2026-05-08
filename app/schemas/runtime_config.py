@@ -12,6 +12,7 @@ class TemplateIdentificationRuntimeConfigRequest(APIModel):
     endpoint_url: str | None = Field(default=None, alias="endpointUrl")
     api_key_env_var: str | None = Field(default=None, alias="apiKeyEnvVar")
     api_key: str | None = Field(default=None, alias="apiKey")
+    include_response_format: bool = Field(default=True, alias="includeResponseFormat")
 
 
 class TemplateIdentificationRuntimeConfigResponse(APIModel):
@@ -21,6 +22,7 @@ class TemplateIdentificationRuntimeConfigResponse(APIModel):
     endpoint_url: str | None = Field(default=None, alias="endpointUrl")
     api_key_env_var: str | None = Field(default=None, alias="apiKeyEnvVar")
     has_api_key: bool = Field(alias="hasApiKey")
+    include_response_format: bool = Field(default=True, alias="includeResponseFormat")
 
 
 class RuleDraftRuntimeConfigRequest(APIModel):
@@ -30,6 +32,7 @@ class RuleDraftRuntimeConfigRequest(APIModel):
     endpoint_url: str | None = Field(default=None, alias="endpointUrl")
     api_key_env_var: str | None = Field(default=None, alias="apiKeyEnvVar")
     api_key: str | None = Field(default=None, alias="apiKey")
+    include_response_format: bool = Field(default=True, alias="includeResponseFormat")
 
 
 class RuleDraftRuntimeConfigResponse(APIModel):
@@ -39,6 +42,7 @@ class RuleDraftRuntimeConfigResponse(APIModel):
     endpoint_url: str | None = Field(default=None, alias="endpointUrl")
     api_key_env_var: str | None = Field(default=None, alias="apiKeyEnvVar")
     has_api_key: bool = Field(alias="hasApiKey")
+    include_response_format: bool = Field(default=True, alias="includeResponseFormat")
 
 
 class ImageOcrRuntimeConfigRequest(APIModel):
@@ -48,6 +52,7 @@ class ImageOcrRuntimeConfigRequest(APIModel):
     endpoint_url: str | None = Field(default=None, alias="endpointUrl")
     api_key_env_var: str | None = Field(default=None, alias="apiKeyEnvVar")
     api_key: str | None = Field(default=None, alias="apiKey")
+    include_response_format: bool = Field(default=True, alias="includeResponseFormat")
 
 
 class ImageOcrRuntimeConfigResponse(APIModel):
@@ -57,3 +62,4 @@ class ImageOcrRuntimeConfigResponse(APIModel):
     endpoint_url: str | None = Field(default=None, alias="endpointUrl")
     api_key_env_var: str | None = Field(default=None, alias="apiKeyEnvVar")
     has_api_key: bool = Field(alias="hasApiKey")
+    include_response_format: bool = Field(default=True, alias="includeResponseFormat")

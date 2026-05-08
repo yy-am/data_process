@@ -56,6 +56,7 @@ class ModelConfig:
     model_name: str
     api_key: str
     timeout_seconds: int
+    include_response_format: bool = True
 
 
 @dataclass(frozen=True)
@@ -182,6 +183,7 @@ def load_unified_config(config_path: Path) -> tuple[list[ModelConfig], list[Suit
                 model_name=item["modelName"],
                 api_key=api_key,
                 timeout_seconds=int(item.get("timeoutSeconds", 90)),
+                include_response_format=bool(item.get("includeResponseFormat", True)),
             )
         )
     if not models:
@@ -227,20 +229,32 @@ def mask_api_key(api_key: str) -> str:
     return f"{api_key[:6]}***{api_key[-4:]}"
 
 
-def build_chat_request_payload(system_prompt: str, user_prompt: str, model_name: str) -> dict[str, Any]:
-    return {
+def build_chat_request_payload(
+    system_prompt: str,
+    user_prompt: str,
+    model_name: str,
+    include_response_format: bool = True,
+) -> dict[str, Any]:
+    payload = {
         "model": model_name,
         "temperature": 0,
-        "response_format": {"type": "json_object"},
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ],
     }
+    if include_response_format:
+        payload["response_format"] = {"type": "json_object"}
+    return payload
 
 
 def build_chat_request_debug(config: ModelConfig, system_prompt: str, user_prompt: str) -> dict[str, Any]:
-    payload = build_chat_request_payload(system_prompt, user_prompt, config.model_name)
+    payload = build_chat_request_payload(
+        system_prompt,
+        user_prompt,
+        config.model_name,
+        include_response_format=config.include_response_format,
+    )
     return {
         "endpointUrl": config.endpoint_url,
         "provider": config.provider,
@@ -555,6 +569,7 @@ def configure_template_model(client: ApiClient, config: ModelConfig) -> None:
         "endpointUrl": config.endpoint_url,
         "apiKey": config.api_key,
         "timeoutSeconds": config.timeout_seconds,
+        "includeResponseFormat": config.include_response_format,
     }
     client.call_json(
         "POST",
@@ -586,6 +601,7 @@ def summarize_model(model: ModelConfig, suite_results: dict[str, list[dict[str, 
         "modelName": model.model_name,
         "endpointUrl": model.endpoint_url,
         "timeoutSeconds": model.timeout_seconds,
+        "includeResponseFormat": model.include_response_format,
         "overall": overall,
         "bySuite": by_suite,
     }

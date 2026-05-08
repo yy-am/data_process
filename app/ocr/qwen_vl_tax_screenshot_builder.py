@@ -58,23 +58,24 @@ class QwenVlTaxScreenshotBuilder(OCRSnapshotBuilder):
         if api_key:
             headers["Authorization"] = f"Bearer {api_key}"
         data_uri = self._build_data_uri(file_path)
-        body = json.dumps(
-            {
-                "model": config.model,
-                "temperature": 0,
-                "response_format": {"type": "json_object"},
-                "messages": [
-                    {"role": "system", "content": self._build_system_prompt()},
-                    {
-                        "role": "user",
-                        "content": [
-                            {"type": "text", "text": self._build_user_prompt()},
-                            {"type": "image_url", "image_url": {"url": data_uri}},
-                        ],
-                    },
-                ],
-            }
-        ).encode("utf-8")
+        payload = {
+            "model": config.model,
+            "temperature": 0,
+            "messages": [
+                {"role": "system", "content": self._build_system_prompt()},
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": self._build_user_prompt()},
+                        {"type": "image_url", "image_url": {"url": data_uri}},
+                    ],
+                },
+            ],
+        }
+        if config.include_response_format:
+            payload["response_format"] = {"type": "json_object"}
+
+        body = json.dumps(payload).encode("utf-8")
         http_request = request.Request(config.endpoint_url, data=body, headers=headers, method="POST")
         opener = request.build_opener(request.ProxyHandler({}))
         try:
