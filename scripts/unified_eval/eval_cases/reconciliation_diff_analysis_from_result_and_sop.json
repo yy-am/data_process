@@ -1,0 +1,518 @@
+[
+  {
+    "id": "DA001",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "源端缺失",
+    "input": "对账结果：1000笔订单中有32笔支付侧有记录、订单侧没有记录；异常几乎都发生在凌晨导入批次；金额完全一致。请分析原因。",
+    "expected": {
+      "sop": {
+        "sopCode": "payment_missing_order",
+        "description": "支付侧存在、订单侧缺失时，优先检查源端缺数与凌晨批次延迟。",
+        "checks": [
+          "CHECK_PAYMENT_EXISTS_ORDER_MISSING: 支付侧有记录而订单侧无记录",
+          "CHECK_BATCH_WINDOW_DAWN: 异常集中在凌晨批次",
+          "CHECK_AMOUNT_STILL_MATCHED: 金额本身一致"
+        ],
+        "mustHitChecks": [
+          "CHECK_PAYMENT_EXISTS_ORDER_MISSING",
+          "CHECK_BATCH_WINDOW_DAWN"
+        ]
+      },
+      "primaryCauses": [
+        "missing_source_data",
+        "late_arrival"
+      ],
+      "needHumanReview": false,
+      "evidenceKeywords": [
+        "订单侧没有记录",
+        "凌晨",
+        "导入批次"
+      ],
+      "actionKeywords": [
+        "补数",
+        "检查同步",
+        "重跑"
+      ]
+    }
+  },
+  {
+    "id": "DA002",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "重复流水",
+    "input": "差异摘要：银行侧 5800 条，ERP 侧 5720 条，多出的 80 条全部是相同流水号重复两次，金额一致。",
+    "expected": {
+      "sop": {
+        "sopCode": "bank_duplicate",
+        "description": "银行侧记录数偏多且同一流水号重复时，优先按重复导入或幂等失败分析。",
+        "checks": [
+          "CHECK_BANK_COUNT_GREATER: 银行侧记录数大于 ERP",
+          "CHECK_SAME_TXN_DUPLICATED: 相同流水号重复出现",
+          "CHECK_DUP_AMOUNT_EQUAL: 重复记录金额一致"
+        ],
+        "mustHitChecks": [
+          "CHECK_SAME_TXN_DUPLICATED"
+        ]
+      },
+      "primaryCauses": [
+        "duplicate_records"
+      ],
+      "needHumanReview": false,
+      "evidenceKeywords": [
+        "重复",
+        "相同流水号"
+      ],
+      "actionKeywords": [
+        "去重",
+        "检查幂等"
+      ]
+    }
+  },
+  {
+    "id": "DA003",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "主键错位",
+    "input": "订单侧使用外部订单号，对账平台使用内部订单号，导致大量未匹配，但金额分布基本相同。",
+    "expected": {
+      "primaryCauses": [
+        "key_mismatch"
+      ],
+      "needHumanReview": false,
+      "evidenceKeywords": [
+        "外部订单号",
+        "内部订单号",
+        "未匹配"
+      ],
+      "actionKeywords": [
+        "统一主键",
+        "映射表"
+      ]
+    }
+  },
+  {
+    "id": "DA004",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "四舍五入误差",
+    "input": "绝大多数差异都在0.01以内，原始币种金额一致，只有本位币换算后出现尾差。",
+    "expected": {
+      "sop": {
+        "sopCode": "fx_rounding",
+        "description": "当原币一致、本位币有微小差异时，检查汇率表版本和四舍五入规则。",
+        "checks": [
+          "CHECK_DELTA_WITHIN_ONE_CENT: 差异在 0.01 以内",
+          "CHECK_ORIGINAL_CCY_MATCHED: 原币金额一致",
+          "CHECK_LOCAL_CCY_MISMATCH: 本位币换算后不一致"
+        ],
+        "mustHitChecks": [
+          "CHECK_DELTA_WITHIN_ONE_CENT",
+          "CHECK_LOCAL_CCY_MISMATCH"
+        ]
+      },
+      "primaryCauses": [
+        "amount_rounding",
+        "exchange_rate_mismatch"
+      ],
+      "needHumanReview": false,
+      "evidenceKeywords": [
+        "0.01",
+        "本位币",
+        "换算"
+      ],
+      "actionKeywords": [
+        "容差",
+        "汇率",
+        "舍入规则"
+      ]
+    }
+  },
+  {
+    "id": "DA005",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "税率口径不一致",
+    "input": "ERP 侧按含税金额入账，税局侧按税额和不含税金额分别登记，导致税额和总额均有规律性差异。",
+    "expected": {
+      "sop": {
+        "sopCode": "tax_rule_gap",
+        "description": "税局与 ERP 口径不一致时，优先检查含税/未税口径、税额拆分和税率版本。",
+        "checks": [
+          "CHECK_ERP_TAX_INCLUSIVE: ERP 使用含税口径",
+          "CHECK_TAX_PORTAL_SPLIT_FIELDS: 税局侧拆分税额与不含税金额",
+          "CHECK_REGULAR_TAX_DELTA: 差异具有规律性"
+        ],
+        "mustHitChecks": [
+          "CHECK_ERP_TAX_INCLUSIVE",
+          "CHECK_TAX_PORTAL_SPLIT_FIELDS"
+        ]
+      },
+      "primaryCauses": [
+        "tax_rule_mismatch"
+      ],
+      "needHumanReview": false,
+      "evidenceKeywords": [
+        "含税金额",
+        "税额",
+        "不含税"
+      ],
+      "actionKeywords": [
+        "统一税务口径",
+        "映射规则"
+      ]
+    }
+  },
+  {
+    "id": "DA006",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "状态时点差",
+    "input": "支付平台已经成功，但订单系统还停留在待支付或处理中，晚30分钟后再次对账大多恢复正常。",
+    "expected": {
+      "sop": {
+        "sopCode": "status_lag",
+        "description": "状态不一致但延后恢复时，优先检查同步延迟和状态更新时间窗口。",
+        "checks": [
+          "CHECK_STATUS_MISMATCH_ONLY: 主要是状态差异",
+          "CHECK_RECOVER_AFTER_RETRY: 延迟后恢复正常",
+          "CHECK_SHORT_TIME_GAP: 时间差较短"
+        ],
+        "mustHitChecks": [
+          "CHECK_RECOVER_AFTER_RETRY"
+        ]
+      },
+      "primaryCauses": [
+        "status_timing_gap",
+        "late_arrival"
+      ],
+      "needHumanReview": false,
+      "evidenceKeywords": [
+        "30分钟后",
+        "恢复正常",
+        "待支付"
+      ],
+      "actionKeywords": [
+        "延迟重试",
+        "拉长窗口"
+      ]
+    }
+  },
+  {
+    "id": "DA007",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "人工调账",
+    "input": "ERP 中有少量凭证金额被财务手工调整，和原始结算平台金额不一致，差异笔数只有 6 笔，但金额偏差较大。",
+    "expected": {
+      "primaryCauses": [
+        "manual_adjustment"
+      ],
+      "needHumanReview": true,
+      "evidenceKeywords": [
+        "手工调整",
+        "财务"
+      ],
+      "actionKeywords": [
+        "人工复核",
+        "审批记录"
+      ]
+    }
+  },
+  {
+    "id": "DA008",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "字段映射错误",
+    "input": "同一批次里数量都能对上，但金额字段整体偏小，排查发现系统把未税金额映射成了含税金额字段。",
+    "expected": {
+      "sop": {
+        "sopCode": "mapping_field_error",
+        "description": "数量对得上但金额系统性偏差时，优先检查字段映射和口径字段选错。",
+        "checks": [
+          "CHECK_QTY_MATCHED: 数量一致",
+          "CHECK_AMOUNT_SYSTEMATIC_BIAS: 金额整体偏差同向",
+          "CHECK_WRONG_FIELD_MAPPED: 存在未税/含税字段误映射"
+        ],
+        "mustHitChecks": [
+          "CHECK_QTY_MATCHED",
+          "CHECK_WRONG_FIELD_MAPPED"
+        ]
+      },
+      "primaryCauses": [
+        "mapping_error",
+        "tax_rule_mismatch"
+      ],
+      "needHumanReview": false,
+      "evidenceKeywords": [
+        "映射",
+        "未税金额",
+        "含税金额"
+      ],
+      "actionKeywords": [
+        "修正映射",
+        "回放"
+      ]
+    }
+  },
+  {
+    "id": "DA009",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "过滤范围不一致",
+    "input": "订单侧只取美国站，支付侧把加拿大站也算进来了，所以金额总额偏大，但单笔样本看不出格式问题。",
+    "expected": {
+      "primaryCauses": [
+        "scope_filter_mismatch"
+      ],
+      "needHumanReview": false,
+      "evidenceKeywords": [
+        "美国站",
+        "加拿大站"
+      ],
+      "actionKeywords": [
+        "统一过滤条件",
+        "站点范围"
+      ]
+    }
+  },
+  {
+    "id": "DA010",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "退款冲抵",
+    "input": "销售订单金额都一致，但支付侧净额偏小，经查同日有退款和撤销交易被一起汇总。",
+    "expected": {
+      "primaryCauses": [
+        "refund_reversal_offset"
+      ],
+      "needHumanReview": false,
+      "evidenceKeywords": [
+        "退款",
+        "撤销",
+        "净额偏小"
+      ],
+      "actionKeywords": [
+        "拆分正逆向流水",
+        "单独对账"
+      ]
+    }
+  },
+  {
+    "id": "DA011",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "跨期截断",
+    "input": "月末23:55到次日00:10之间的记录差异最多，次月跑累计对账后差异基本消失。",
+    "expected": {
+      "sop": {
+        "sopCode": "cutoff_cross_period",
+        "description": "差异集中在月末跨天窗口时，优先检查截数时点和跨期补跑策略。",
+        "checks": [
+          "CHECK_MONTH_END_WINDOW: 差异集中在月末跨天窗口",
+          "CHECK_DIFF_DISAPPEAR_LATER: 后续累计对账恢复",
+          "CHECK_CUTOFF_PATTERN: 呈现明显截断特征"
+        ],
+        "mustHitChecks": [
+          "CHECK_MONTH_END_WINDOW",
+          "CHECK_DIFF_DISAPPEAR_LATER"
+        ]
+      },
+      "primaryCauses": [
+        "cross_period_cutoff",
+        "late_arrival"
+      ],
+      "needHumanReview": false,
+      "evidenceKeywords": [
+        "月末",
+        "次日",
+        "差异基本消失"
+      ],
+      "actionKeywords": [
+        "跨期窗口",
+        "补跑"
+      ]
+    }
+  },
+  {
+    "id": "DA012",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "上游程序缺陷",
+    "input": "本周三开始所有欧元订单在 ERP 中金额都放大了 100 倍，其他币种正常，发布记录显示当天有汇率模块改动。",
+    "expected": {
+      "sop": {
+        "sopCode": "release_regression_fx",
+        "description": "单币种异常且与发布时间吻合时，优先检查上游发布引入的汇率或换算缺陷。",
+        "checks": [
+          "CHECK_SINGLE_CURRENCY_AFFECTED: 仅欧元异常",
+          "CHECK_SCALE_100X: 金额放大 100 倍",
+          "CHECK_RELEASE_SAME_DAY: 当天存在相关发布"
+        ],
+        "mustHitChecks": [
+          "CHECK_SINGLE_CURRENCY_AFFECTED",
+          "CHECK_RELEASE_SAME_DAY"
+        ]
+      },
+      "primaryCauses": [
+        "upstream_bug",
+        "exchange_rate_mismatch"
+      ],
+      "needHumanReview": true,
+      "evidenceKeywords": [
+        "100倍",
+        "欧元",
+        "发布记录"
+      ],
+      "actionKeywords": [
+        "回滚",
+        "排查发布",
+        "修复代码"
+      ]
+    }
+  },
+  {
+    "id": "DA013",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "证据不足",
+    "input": "有一些差异，但目前只知道金额不一致，没有样本、没有字段分布，也没有时间规律。",
+    "expected": {
+      "sop": {
+        "sopCode": "insufficient_evidence",
+        "description": "当缺少样本、字段分布和时间特征时，不应强行归因，应先补证据。",
+        "checks": [
+          "CHECK_NO_SAMPLES: 没有样本",
+          "CHECK_NO_FIELD_DISTRIBUTION: 没有字段分布",
+          "CHECK_NO_TIME_PATTERN: 没有时间规律"
+        ],
+        "mustHitChecks": [
+          "CHECK_NO_SAMPLES",
+          "CHECK_NO_FIELD_DISTRIBUTION",
+          "CHECK_NO_TIME_PATTERN"
+        ]
+      },
+      "primaryCauses": [
+        "unknown_insufficient_evidence"
+      ],
+      "needHumanReview": true,
+      "evidenceKeywords": [
+        "没有样本",
+        "没有字段分布",
+        "没有时间规律"
+      ],
+      "actionKeywords": [
+        "补充样本",
+        "补充分布",
+        "人工分析"
+      ]
+    }
+  },
+  {
+    "id": "DA014",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "数量一致但状态不一致",
+    "input": "WMS 与订单系统数量完全一致，但 120 笔状态一边是已发货，一边还是待出库，第二天再查恢复 90%。",
+    "expected": {
+      "primaryCauses": [
+        "status_timing_gap"
+      ],
+      "needHumanReview": false,
+      "evidenceKeywords": [
+        "已发货",
+        "待出库",
+        "第二天"
+      ],
+      "actionKeywords": [
+        "延迟对账",
+        "状态同步"
+      ]
+    }
+  },
+  {
+    "id": "DA015",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "发票主键口径混用",
+    "input": "税局侧按发票代码+号码唯一，ERP 里只按发票号码，导致不同代码下出现串单。",
+    "expected": {
+      "primaryCauses": [
+        "key_mismatch"
+      ],
+      "needHumanReview": false,
+      "evidenceKeywords": [
+        "发票代码",
+        "发票号码",
+        "串单"
+      ],
+      "actionKeywords": [
+        "组合键",
+        "修正匹配规则"
+      ]
+    }
+  },
+  {
+    "id": "DA016",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "多次导入导致重复",
+    "input": "凌晨任务失败后重试了三次，结算平台侧同一批结算单被重复导入，但 ERP 侧只保留了一份。",
+    "expected": {
+      "primaryCauses": [
+        "duplicate_records",
+        "upstream_bug"
+      ],
+      "needHumanReview": true,
+      "evidenceKeywords": [
+        "重试三次",
+        "重复导入"
+      ],
+      "actionKeywords": [
+        "幂等",
+        "重放策略",
+        "人工复核"
+      ]
+    }
+  },
+  {
+    "id": "DA017",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "站点范围与状态过滤同时不一致",
+    "input": "支付侧把美国站和英国站都算进来了，订单侧只取美国站且排除了取消单，所以总额和笔数都偏大。",
+    "expected": {
+      "primaryCauses": [
+        "scope_filter_mismatch"
+      ],
+      "needHumanReview": false,
+      "evidenceKeywords": [
+        "美国站",
+        "英国站",
+        "排除了取消单"
+      ],
+      "actionKeywords": [
+        "统一过滤范围",
+        "统一状态口径"
+      ]
+    }
+  },
+  {
+    "id": "DA018",
+    "taskType": "diff_analysis_from_result_and_sop",
+    "title": "币种一致但汇率表版本不同",
+    "input": "原币金额和币种都一致，本位币金额差异集中发生在月初，两个系统使用的汇率表生效日期不同。",
+    "expected": {
+      "sop": {
+        "sopCode": "fx_rate_version_gap",
+        "description": "原币一致、本位币月初差异集中时，优先检查汇率表版本和生效日期。",
+        "checks": [
+          "CHECK_ORIGINAL_AMOUNT_MATCH: 原币金额一致",
+          "CHECK_LOCAL_AMOUNT_DIFF: 本位币金额不一致",
+          "CHECK_FX_EFFECTIVE_DATE_DIFF: 汇率生效日期不同"
+        ],
+        "mustHitChecks": [
+          "CHECK_LOCAL_AMOUNT_DIFF",
+          "CHECK_FX_EFFECTIVE_DATE_DIFF"
+        ]
+      },
+      "primaryCauses": [
+        "exchange_rate_mismatch"
+      ],
+      "needHumanReview": false,
+      "evidenceKeywords": [
+        "本位币",
+        "月初",
+        "汇率表",
+        "生效日期"
+      ],
+      "actionKeywords": [
+        "统一汇率版本",
+        "汇率生效日"
+      ]
+    }
+  }
+]

@@ -1,0 +1,3867 @@
+{
+  "generatedAt": "2026-05-08T03-06-11Z",
+  "configFile": "scripts\\unified_eval\\unified_model_eval_config.json",
+  "baseUrl": "http://127.0.0.1:8000",
+  "summaries": [
+    {
+      "model": "deepseek-v3.1",
+      "provider": "openai_compatible_chat",
+      "modelName": "deepseek-v3.1",
+      "endpointUrl": "https://jeniya.cn/v1/chat/completions",
+      "timeoutSeconds": 90,
+      "overall": {
+        "caseCount": 47,
+        "averageScore": 83.23,
+        "passedCases": 29,
+        "passRate": 0.617
+      },
+      "bySuite": {
+        "data_processing_template_identification": {
+          "caseCount": 11,
+          "averageScore": 100.0,
+          "passedCases": 11,
+          "passRate": 1.0
+        },
+        "job_creation_from_scene": {
+          "caseCount": 18,
+          "averageScore": 76.89,
+          "passedCases": 7,
+          "passRate": 0.3889
+        },
+        "diff_analysis_from_result_and_sop": {
+          "caseCount": 18,
+          "averageScore": 79.33,
+          "passedCases": 11,
+          "passRate": 0.6111
+        }
+      }
+    }
+  ],
+  "suites": [
+    {
+      "suite": "data_processing_template_identification",
+      "displayName": "Data Processing Template Identification",
+      "casesFile": "D:\\lsy_projects\\data_process\\scripts\\unified_eval\\eval_cases\\data_processing_template_identification.json",
+      "caseCount": 11
+    },
+    {
+      "suite": "job_creation_from_scene",
+      "displayName": "Reconciliation Job Creation From Existing Scene",
+      "casesFile": "D:\\lsy_projects\\data_process\\scripts\\unified_eval\\eval_cases\\reconciliation_job_creation_from_scene.json",
+      "caseCount": 18
+    },
+    {
+      "suite": "diff_analysis_from_result_and_sop",
+      "displayName": "Diff Analysis From Result And SOP",
+      "casesFile": "D:\\lsy_projects\\data_process\\scripts\\unified_eval\\eval_cases\\reconciliation_diff_analysis_from_result_and_sop.json",
+      "caseCount": 18
+    }
+  ],
+  "results": {
+    "deepseek-v3.1": {
+      "data_processing_template_identification": [
+        {
+          "caseId": "DP001",
+          "suite": "data_processing_template_identification",
+          "taskType": "data_processing_template_identification",
+          "title": "Payment invoice standard US clean headers",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "templateCode": "PAYMENT_INVOICE_STANDARD_US",
+            "sceneCode": "payment",
+            "countryCode": "us"
+          },
+          "actual": {
+            "templateCode": "PAYMENT_INVOICE_STANDARD_US",
+            "sceneCode": "payment",
+            "countryCode": "us",
+            "confidence": 1.0,
+            "alternatives": [],
+            "needUserConfirm": false,
+            "rationale": [
+              "Normalized headers exactly match PAYMENT_INVOICE_STANDARD_US template: invoiceno, invoicedate, buyername, sellername, currency, amount",
+              "Sheet name 'UploadPayment' aligns with payment scene",
+              "Sample row data contains invoice and payment details consistent with payment scene",
+              "No other catalog templates have matching header sets or scene context"
+            ]
+          },
+          "scoreDetails": {
+            "taskId": "ee483bce-ca6b-4bf1-8c5a-592e6bbf9c86",
+            "taskStatus": "TEMPLATE_RETRIEVED",
+            "sheetName": "UploadPayment",
+            "headerCount": 6,
+            "needUserConfirm": false,
+            "reason": "Template, scene, and country matched expected values.",
+            "templateCandidates": {
+              "candidates": [
+                {
+                  "code": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "name": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=customs",
+                    "country=cn",
+                    "header_count=6",
+                    "headers_preview=Declaration No, Declaration Date, Exporter, Importer, HS Code, Declared Value"
+                  ]
+                },
+                {
+                  "code": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "name": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=fulfillment",
+                    "country=jp",
+                    "header_count=22",
+                    "headers_preview=Order ID, Order Date, Customer ID, Recipient Name, Delivery Postal Code, Delivery Address Line 1, Delivery Address Line 2, Contact Phone"
+                  ]
+                },
+                {
+                  "code": "PAYMENT_INVOICE_STANDARD_US",
+                  "name": "PAYMENT_INVOICE_STANDARD_US",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=payment",
+                    "country=us",
+                    "header_count=6",
+                    "headers_preview=Invoice No, Invoice Date, Buyer Name, Seller Name, Currency, Amount"
+                  ]
+                },
+                {
+                  "code": "CHANNEL_REBATE_STANDARD_MX",
+                  "name": "CHANNEL_REBATE_STANDARD_MX",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=22",
+                    "headers_preview=Claim ID, Partner Name, Country, Program Name, Claim Period Start, Claim Period End, Invoice Reference, Product Family"
+                  ]
+                },
+                {
+                  "code": "REBATE_MX_TEMPLATE",
+                  "name": "REBATE_MX_TEMPLATE",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=6",
+                    "headers_preview=Ticket, Distributor, Geo, Txn Curr, Total Back, Decision Dt"
+                  ]
+                },
+                {
+                  "code": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "name": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=settlement",
+                    "country=eu",
+                    "header_count=7",
+                    "headers_preview=Settlement No, Settlement Date, Vendor Name, Country, Net Amount, Tax Amount, Total Amount"
+                  ]
+                }
+              ],
+              "retrievedAt": "2026-05-08T03:06:11.986798+00:00"
+            }
+          },
+          "rawText": null
+        },
+        {
+          "caseId": "DP002",
+          "suite": "data_processing_template_identification",
+          "taskType": "data_processing_template_identification",
+          "title": "Payment invoice US variant headers",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "templateCode": "PAYMENT_INVOICE_STANDARD_US",
+            "sceneCode": "payment",
+            "countryCode": "us"
+          },
+          "actual": {
+            "templateCode": "PAYMENT_INVOICE_STANDARD_US",
+            "sceneCode": "payment",
+            "countryCode": "us",
+            "confidence": 0.95,
+            "alternatives": [],
+            "needUserConfirm": false,
+            "rationale": [
+              "Input headers match PAYMENT_INVOICE_STANDARD_US template headers exactly: Invoice No -> Invoice Number, Invoice Date -> Date of Invoice, Buyer Name -> Customer Name, Seller Name -> Seller Name, Currency -> Curr., Amount -> Total Value",
+              "Sheet name 'UploadPaymentVariant' suggests payment-related context",
+              "Sample data shows invoice transactions between buyers and sellers",
+              "No other templates in catalog have matching header structure for invoice/payment data"
+            ]
+          },
+          "scoreDetails": {
+            "taskId": "32dd3974-f49b-428d-b01e-cb209d2ac870",
+            "taskStatus": "TEMPLATE_RETRIEVED",
+            "sheetName": "UploadPaymentVariant",
+            "headerCount": 6,
+            "needUserConfirm": false,
+            "reason": "Template, scene, and country matched expected values.",
+            "templateCandidates": {
+              "candidates": [
+                {
+                  "code": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "name": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=customs",
+                    "country=cn",
+                    "header_count=6",
+                    "headers_preview=Declaration No, Declaration Date, Exporter, Importer, HS Code, Declared Value"
+                  ]
+                },
+                {
+                  "code": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "name": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=fulfillment",
+                    "country=jp",
+                    "header_count=22",
+                    "headers_preview=Order ID, Order Date, Customer ID, Recipient Name, Delivery Postal Code, Delivery Address Line 1, Delivery Address Line 2, Contact Phone"
+                  ]
+                },
+                {
+                  "code": "PAYMENT_INVOICE_STANDARD_US",
+                  "name": "PAYMENT_INVOICE_STANDARD_US",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=payment",
+                    "country=us",
+                    "header_count=6",
+                    "headers_preview=Invoice No, Invoice Date, Buyer Name, Seller Name, Currency, Amount"
+                  ]
+                },
+                {
+                  "code": "CHANNEL_REBATE_STANDARD_MX",
+                  "name": "CHANNEL_REBATE_STANDARD_MX",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=22",
+                    "headers_preview=Claim ID, Partner Name, Country, Program Name, Claim Period Start, Claim Period End, Invoice Reference, Product Family"
+                  ]
+                },
+                {
+                  "code": "REBATE_MX_TEMPLATE",
+                  "name": "REBATE_MX_TEMPLATE",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=6",
+                    "headers_preview=Ticket, Distributor, Geo, Txn Curr, Total Back, Decision Dt"
+                  ]
+                },
+                {
+                  "code": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "name": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=settlement",
+                    "country=eu",
+                    "header_count=7",
+                    "headers_preview=Settlement No, Settlement Date, Vendor Name, Country, Net Amount, Tax Amount, Total Amount"
+                  ]
+                }
+              ],
+              "retrievedAt": "2026-05-08T03:06:16.856000+00:00"
+            }
+          },
+          "rawText": null
+        },
+        {
+          "caseId": "DP003",
+          "suite": "data_processing_template_identification",
+          "taskType": "data_processing_template_identification",
+          "title": "Payment invoice US similar headers v2",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "templateCode": "PAYMENT_INVOICE_STANDARD_US",
+            "sceneCode": "payment",
+            "countryCode": "us"
+          },
+          "actual": {
+            "templateCode": "PAYMENT_INVOICE_STANDARD_US",
+            "sceneCode": "payment",
+            "countryCode": "us",
+            "confidence": 0.95,
+            "alternatives": [],
+            "needUserConfirm": false,
+            "rationale": [
+              "Sheet name 'PaymentInput' aligns with payment scene.",
+              "Headers match exactly: Invoice No (Invoice Number), Invoice Date (Billing Date), Buyer Name (Buyer), Seller Name (Seller), Currency (Curr.), Amount (Invoice Amount).",
+              "Country code 'us' inferred from currency 'usd' in sample data and template specification."
+            ]
+          },
+          "scoreDetails": {
+            "taskId": "2d5e173f-268e-46ff-9a15-8e833d19a1b4",
+            "taskStatus": "TEMPLATE_RETRIEVED",
+            "sheetName": "PaymentInput",
+            "headerCount": 6,
+            "needUserConfirm": false,
+            "reason": "Template, scene, and country matched expected values.",
+            "templateCandidates": {
+              "candidates": [
+                {
+                  "code": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "name": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=customs",
+                    "country=cn",
+                    "header_count=6",
+                    "headers_preview=Declaration No, Declaration Date, Exporter, Importer, HS Code, Declared Value"
+                  ]
+                },
+                {
+                  "code": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "name": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=fulfillment",
+                    "country=jp",
+                    "header_count=22",
+                    "headers_preview=Order ID, Order Date, Customer ID, Recipient Name, Delivery Postal Code, Delivery Address Line 1, Delivery Address Line 2, Contact Phone"
+                  ]
+                },
+                {
+                  "code": "PAYMENT_INVOICE_STANDARD_US",
+                  "name": "PAYMENT_INVOICE_STANDARD_US",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=payment",
+                    "country=us",
+                    "header_count=6",
+                    "headers_preview=Invoice No, Invoice Date, Buyer Name, Seller Name, Currency, Amount"
+                  ]
+                },
+                {
+                  "code": "CHANNEL_REBATE_STANDARD_MX",
+                  "name": "CHANNEL_REBATE_STANDARD_MX",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=22",
+                    "headers_preview=Claim ID, Partner Name, Country, Program Name, Claim Period Start, Claim Period End, Invoice Reference, Product Family"
+                  ]
+                },
+                {
+                  "code": "REBATE_MX_TEMPLATE",
+                  "name": "REBATE_MX_TEMPLATE",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=6",
+                    "headers_preview=Ticket, Distributor, Geo, Txn Curr, Total Back, Decision Dt"
+                  ]
+                },
+                {
+                  "code": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "name": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=settlement",
+                    "country=eu",
+                    "header_count=7",
+                    "headers_preview=Settlement No, Settlement Date, Vendor Name, Country, Net Amount, Tax Amount, Total Amount"
+                  ]
+                }
+              ],
+              "retrievedAt": "2026-05-08T03:06:21.953241+00:00"
+            }
+          },
+          "rawText": null
+        },
+        {
+          "caseId": "DP004",
+          "suite": "data_processing_template_identification",
+          "taskType": "data_processing_template_identification",
+          "title": "Customs declaration CN clean headers",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "templateCode": "CUSTOMS_DECLARATION_STANDARD_CN",
+            "sceneCode": "customs",
+            "countryCode": "cn"
+          },
+          "actual": {
+            "templateCode": "CUSTOMS_DECLARATION_STANDARD_CN",
+            "sceneCode": "customs",
+            "countryCode": "cn",
+            "confidence": 1.0,
+            "alternatives": [],
+            "needUserConfirm": false,
+            "rationale": [
+              "Input headers exactly match catalog headers for CUSTOMS_DECLARATION_STANDARD_CN",
+              "Sheet name 'UploadCustoms' aligns with scene 'customs'",
+              "Sample data contains CN-based declaration numbers and entities",
+              "No other catalog entries have matching headers or scene context"
+            ]
+          },
+          "scoreDetails": {
+            "taskId": "9c681843-af87-4cbd-bbc7-6459e7e16fea",
+            "taskStatus": "TEMPLATE_RETRIEVED",
+            "sheetName": "UploadCustoms",
+            "headerCount": 6,
+            "needUserConfirm": false,
+            "reason": "Template, scene, and country matched expected values.",
+            "templateCandidates": {
+              "candidates": [
+                {
+                  "code": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "name": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=customs",
+                    "country=cn",
+                    "header_count=6",
+                    "headers_preview=Declaration No, Declaration Date, Exporter, Importer, HS Code, Declared Value"
+                  ]
+                },
+                {
+                  "code": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "name": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=fulfillment",
+                    "country=jp",
+                    "header_count=22",
+                    "headers_preview=Order ID, Order Date, Customer ID, Recipient Name, Delivery Postal Code, Delivery Address Line 1, Delivery Address Line 2, Contact Phone"
+                  ]
+                },
+                {
+                  "code": "PAYMENT_INVOICE_STANDARD_US",
+                  "name": "PAYMENT_INVOICE_STANDARD_US",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=payment",
+                    "country=us",
+                    "header_count=6",
+                    "headers_preview=Invoice No, Invoice Date, Buyer Name, Seller Name, Currency, Amount"
+                  ]
+                },
+                {
+                  "code": "CHANNEL_REBATE_STANDARD_MX",
+                  "name": "CHANNEL_REBATE_STANDARD_MX",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=22",
+                    "headers_preview=Claim ID, Partner Name, Country, Program Name, Claim Period Start, Claim Period End, Invoice Reference, Product Family"
+                  ]
+                },
+                {
+                  "code": "REBATE_MX_TEMPLATE",
+                  "name": "REBATE_MX_TEMPLATE",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=6",
+                    "headers_preview=Ticket, Distributor, Geo, Txn Curr, Total Back, Decision Dt"
+                  ]
+                },
+                {
+                  "code": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "name": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=settlement",
+                    "country=eu",
+                    "header_count=7",
+                    "headers_preview=Settlement No, Settlement Date, Vendor Name, Country, Net Amount, Tax Amount, Total Amount"
+                  ]
+                }
+              ],
+              "retrievedAt": "2026-05-08T03:06:27.661301+00:00"
+            }
+          },
+          "rawText": null
+        },
+        {
+          "caseId": "DP005",
+          "suite": "data_processing_template_identification",
+          "taskType": "data_processing_template_identification",
+          "title": "Customs declaration CN similar headers v2",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "templateCode": "CUSTOMS_DECLARATION_STANDARD_CN",
+            "sceneCode": "customs",
+            "countryCode": "cn"
+          },
+          "actual": {
+            "templateCode": "CUSTOMS_DECLARATION_STANDARD_CN",
+            "sceneCode": "customs",
+            "countryCode": "cn",
+            "confidence": 0.95,
+            "alternatives": [],
+            "needUserConfirm": false,
+            "rationale": [
+              "Sheet name 'CustomsInput' matches customs scene",
+              "Headers match exactly: declarationid (Declaration No), declarationdt (Declaration Date), exportername (Exporter), importername (Importer), hsitemcode (HS Code), declaredamount (Declared Value)",
+              "Sample data shows Chinese company names (Shanghai, Guangzhou, Ningbo, Shenzhen) and CN country code in Declaration ID",
+              "No other catalog templates match both headers and scene context"
+            ]
+          },
+          "scoreDetails": {
+            "taskId": "a92f6042-cba8-400e-8e94-fbd9a3845ad9",
+            "taskStatus": "TEMPLATE_RETRIEVED",
+            "sheetName": "CustomsInput",
+            "headerCount": 6,
+            "needUserConfirm": false,
+            "reason": "Template, scene, and country matched expected values.",
+            "templateCandidates": {
+              "candidates": [
+                {
+                  "code": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "name": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=customs",
+                    "country=cn",
+                    "header_count=6",
+                    "headers_preview=Declaration No, Declaration Date, Exporter, Importer, HS Code, Declared Value"
+                  ]
+                },
+                {
+                  "code": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "name": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=fulfillment",
+                    "country=jp",
+                    "header_count=22",
+                    "headers_preview=Order ID, Order Date, Customer ID, Recipient Name, Delivery Postal Code, Delivery Address Line 1, Delivery Address Line 2, Contact Phone"
+                  ]
+                },
+                {
+                  "code": "PAYMENT_INVOICE_STANDARD_US",
+                  "name": "PAYMENT_INVOICE_STANDARD_US",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=payment",
+                    "country=us",
+                    "header_count=6",
+                    "headers_preview=Invoice No, Invoice Date, Buyer Name, Seller Name, Currency, Amount"
+                  ]
+                },
+                {
+                  "code": "CHANNEL_REBATE_STANDARD_MX",
+                  "name": "CHANNEL_REBATE_STANDARD_MX",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=22",
+                    "headers_preview=Claim ID, Partner Name, Country, Program Name, Claim Period Start, Claim Period End, Invoice Reference, Product Family"
+                  ]
+                },
+                {
+                  "code": "REBATE_MX_TEMPLATE",
+                  "name": "REBATE_MX_TEMPLATE",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=6",
+                    "headers_preview=Ticket, Distributor, Geo, Txn Curr, Total Back, Decision Dt"
+                  ]
+                },
+                {
+                  "code": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "name": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=settlement",
+                    "country=eu",
+                    "header_count=7",
+                    "headers_preview=Settlement No, Settlement Date, Vendor Name, Country, Net Amount, Tax Amount, Total Amount"
+                  ]
+                }
+              ],
+              "retrievedAt": "2026-05-08T03:06:31.562685+00:00"
+            }
+          },
+          "rawText": null
+        },
+        {
+          "caseId": "DP006",
+          "suite": "data_processing_template_identification",
+          "taskType": "data_processing_template_identification",
+          "title": "Vendor settlement EU variant headers",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "templateCode": "VENDOR_SETTLEMENT_STANDARD_EU",
+            "sceneCode": "settlement",
+            "countryCode": "eu"
+          },
+          "actual": {
+            "templateCode": "VENDOR_SETTLEMENT_STANDARD_EU",
+            "sceneCode": "settlement",
+            "countryCode": "eu",
+            "confidence": 0.95,
+            "alternatives": [],
+            "needUserConfirm": false,
+            "rationale": [
+              "Sheet name 'UploadSettlement' contains 'settlement' which matches scene",
+              "Headers match exactly: Settlement No -> Settlement Number, Settlement Date, Vendor Name -> Supplier Name, Country, Net Amount, Tax Amount -> VAT, Total Amount -> Gross Amount",
+              "Country codes in sample rows (DE, IT) are EU member states, consistent with country=eu",
+              "No other catalog templates have settlement scene or matching header structure"
+            ]
+          },
+          "scoreDetails": {
+            "taskId": "a730e8b1-fb8a-4fbe-a9b6-613b6ad9316d",
+            "taskStatus": "TEMPLATE_RETRIEVED",
+            "sheetName": "UploadSettlement",
+            "headerCount": 7,
+            "needUserConfirm": false,
+            "reason": "Template, scene, and country matched expected values.",
+            "templateCandidates": {
+              "candidates": [
+                {
+                  "code": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "name": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=customs",
+                    "country=cn",
+                    "header_count=6",
+                    "headers_preview=Declaration No, Declaration Date, Exporter, Importer, HS Code, Declared Value"
+                  ]
+                },
+                {
+                  "code": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "name": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=fulfillment",
+                    "country=jp",
+                    "header_count=22",
+                    "headers_preview=Order ID, Order Date, Customer ID, Recipient Name, Delivery Postal Code, Delivery Address Line 1, Delivery Address Line 2, Contact Phone"
+                  ]
+                },
+                {
+                  "code": "PAYMENT_INVOICE_STANDARD_US",
+                  "name": "PAYMENT_INVOICE_STANDARD_US",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=payment",
+                    "country=us",
+                    "header_count=6",
+                    "headers_preview=Invoice No, Invoice Date, Buyer Name, Seller Name, Currency, Amount"
+                  ]
+                },
+                {
+                  "code": "CHANNEL_REBATE_STANDARD_MX",
+                  "name": "CHANNEL_REBATE_STANDARD_MX",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=22",
+                    "headers_preview=Claim ID, Partner Name, Country, Program Name, Claim Period Start, Claim Period End, Invoice Reference, Product Family"
+                  ]
+                },
+                {
+                  "code": "REBATE_MX_TEMPLATE",
+                  "name": "REBATE_MX_TEMPLATE",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=6",
+                    "headers_preview=Ticket, Distributor, Geo, Txn Curr, Total Back, Decision Dt"
+                  ]
+                },
+                {
+                  "code": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "name": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=settlement",
+                    "country=eu",
+                    "header_count=7",
+                    "headers_preview=Settlement No, Settlement Date, Vendor Name, Country, Net Amount, Tax Amount, Total Amount"
+                  ]
+                }
+              ],
+              "retrievedAt": "2026-05-08T03:06:42.121511+00:00"
+            }
+          },
+          "rawText": null
+        },
+        {
+          "caseId": "DP007",
+          "suite": "data_processing_template_identification",
+          "taskType": "data_processing_template_identification",
+          "title": "Vendor settlement EU similar headers v2",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "templateCode": "VENDOR_SETTLEMENT_STANDARD_EU",
+            "sceneCode": "settlement",
+            "countryCode": "eu"
+          },
+          "actual": {
+            "templateCode": "VENDOR_SETTLEMENT_STANDARD_EU",
+            "sceneCode": "settlement",
+            "countryCode": "eu",
+            "confidence": 0.95,
+            "alternatives": [],
+            "needUserConfirm": false,
+            "rationale": [
+              "Sheet name 'SettlementInput' matches scene 'settlement'",
+              "Headers match VENDOR_SETTLEMENT_STANDARD_EU template: Settlement No→Settlement Reference, Settlement Date→Settlement Dt, Vendor Name→Supplier Name, Country→Market, Net Amount→Net Value, Tax Amount→VAT Amount, Total Amount→Gross Total",
+              "Sample data shows EU country codes (DE, FI) consistent with country=eu",
+              "No other catalog entries match both scene and header structure"
+            ]
+          },
+          "scoreDetails": {
+            "taskId": "7f3331c3-f15c-484c-8fbc-07e14ad7f5c9",
+            "taskStatus": "TEMPLATE_RETRIEVED",
+            "sheetName": "SettlementInput",
+            "headerCount": 7,
+            "needUserConfirm": false,
+            "reason": "Template, scene, and country matched expected values.",
+            "templateCandidates": {
+              "candidates": [
+                {
+                  "code": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "name": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=customs",
+                    "country=cn",
+                    "header_count=6",
+                    "headers_preview=Declaration No, Declaration Date, Exporter, Importer, HS Code, Declared Value"
+                  ]
+                },
+                {
+                  "code": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "name": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=fulfillment",
+                    "country=jp",
+                    "header_count=22",
+                    "headers_preview=Order ID, Order Date, Customer ID, Recipient Name, Delivery Postal Code, Delivery Address Line 1, Delivery Address Line 2, Contact Phone"
+                  ]
+                },
+                {
+                  "code": "PAYMENT_INVOICE_STANDARD_US",
+                  "name": "PAYMENT_INVOICE_STANDARD_US",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=payment",
+                    "country=us",
+                    "header_count=6",
+                    "headers_preview=Invoice No, Invoice Date, Buyer Name, Seller Name, Currency, Amount"
+                  ]
+                },
+                {
+                  "code": "CHANNEL_REBATE_STANDARD_MX",
+                  "name": "CHANNEL_REBATE_STANDARD_MX",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=22",
+                    "headers_preview=Claim ID, Partner Name, Country, Program Name, Claim Period Start, Claim Period End, Invoice Reference, Product Family"
+                  ]
+                },
+                {
+                  "code": "REBATE_MX_TEMPLATE",
+                  "name": "REBATE_MX_TEMPLATE",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=6",
+                    "headers_preview=Ticket, Distributor, Geo, Txn Curr, Total Back, Decision Dt"
+                  ]
+                },
+                {
+                  "code": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "name": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=settlement",
+                    "country=eu",
+                    "header_count=7",
+                    "headers_preview=Settlement No, Settlement Date, Vendor Name, Country, Net Amount, Tax Amount, Total Amount"
+                  ]
+                }
+              ],
+              "retrievedAt": "2026-05-08T03:06:46.859594+00:00"
+            }
+          },
+          "rawText": null
+        },
+        {
+          "caseId": "DP008",
+          "suite": "data_processing_template_identification",
+          "taskType": "data_processing_template_identification",
+          "title": "Order fulfillment JP 22-column variant",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "templateCode": "ORDER_FULFILLMENT_STANDARD_JP",
+            "sceneCode": "fulfillment",
+            "countryCode": "jp"
+          },
+          "actual": {
+            "templateCode": "ORDER_FULFILLMENT_STANDARD_JP",
+            "sceneCode": "fulfillment",
+            "countryCode": "jp",
+            "confidence": 0.95,
+            "alternatives": [],
+            "needUserConfirm": false,
+            "rationale": [
+              "Sheet name 'OrderFulfillmentInput' matches fulfillment scene.",
+              "Headers align closely with ORDER_FULFILLMENT_STANDARD_JP template (e.g., Ref No/Order ID, Txn Date/Order Date, Ship To/Recipient Name, Zip/Delivery Postal Code, Addr 1/Delivery Address Line 1, Addr 2/Delivery Address Line 2, Tel/Contact Phone, Item#/SKU, Description/Product Name, Pcs/Quantity, Price Each/Unit Price, Curr/Currency, WH/Warehouse Code, Courier Name/Carrier, AWB No/Tracking Number, Dispatch Dt/Ship Date, ETA/Expected Arrival Date, Pay Type/Payment Method, State/Order Status, Channel/Sales Channel, Remark/Memo).",
+              "Sample data includes JPY currency and Japanese addresses (e.g., Shibuya, Osaka), supporting country code jp.",
+              "No other catalog templates match the header set or context."
+            ]
+          },
+          "scoreDetails": {
+            "taskId": "991ac87d-0cf9-4214-b181-5fe426e6d22e",
+            "taskStatus": "TEMPLATE_RETRIEVED",
+            "sheetName": "OrderFulfillmentInput",
+            "headerCount": 22,
+            "needUserConfirm": false,
+            "reason": "Template, scene, and country matched expected values.",
+            "templateCandidates": {
+              "candidates": [
+                {
+                  "code": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "name": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=customs",
+                    "country=cn",
+                    "header_count=6",
+                    "headers_preview=Declaration No, Declaration Date, Exporter, Importer, HS Code, Declared Value"
+                  ]
+                },
+                {
+                  "code": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "name": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=fulfillment",
+                    "country=jp",
+                    "header_count=22",
+                    "headers_preview=Order ID, Order Date, Customer ID, Recipient Name, Delivery Postal Code, Delivery Address Line 1, Delivery Address Line 2, Contact Phone"
+                  ]
+                },
+                {
+                  "code": "PAYMENT_INVOICE_STANDARD_US",
+                  "name": "PAYMENT_INVOICE_STANDARD_US",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=payment",
+                    "country=us",
+                    "header_count=6",
+                    "headers_preview=Invoice No, Invoice Date, Buyer Name, Seller Name, Currency, Amount"
+                  ]
+                },
+                {
+                  "code": "CHANNEL_REBATE_STANDARD_MX",
+                  "name": "CHANNEL_REBATE_STANDARD_MX",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=22",
+                    "headers_preview=Claim ID, Partner Name, Country, Program Name, Claim Period Start, Claim Period End, Invoice Reference, Product Family"
+                  ]
+                },
+                {
+                  "code": "REBATE_MX_TEMPLATE",
+                  "name": "REBATE_MX_TEMPLATE",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=6",
+                    "headers_preview=Ticket, Distributor, Geo, Txn Curr, Total Back, Decision Dt"
+                  ]
+                },
+                {
+                  "code": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "name": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=settlement",
+                    "country=eu",
+                    "header_count=7",
+                    "headers_preview=Settlement No, Settlement Date, Vendor Name, Country, Net Amount, Tax Amount, Total Amount"
+                  ]
+                }
+              ],
+              "retrievedAt": "2026-05-08T03:06:53.912005+00:00"
+            }
+          },
+          "rawText": null
+        },
+        {
+          "caseId": "DP009",
+          "suite": "data_processing_template_identification",
+          "taskType": "data_processing_template_identification",
+          "title": "Rebate MX similar headers v2",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "templateCode": "REBATE_MX_TEMPLATE",
+            "sceneCode": "rebate",
+            "countryCode": "mx"
+          },
+          "actual": {
+            "templateCode": "REBATE_MX_TEMPLATE",
+            "sceneCode": "rebate",
+            "countryCode": "mx",
+            "confidence": 0.95,
+            "alternatives": [
+              {
+                "templateCode": "CHANNEL_REBATE_STANDARD_MX",
+                "sceneCode": "rebate",
+                "countryCode": "mx",
+                "confidence": 0.6,
+                "reasons": [
+                  "Shared rebate scene and MX country context",
+                  "Some header overlap (e.g., partner name, currency, decision date equivalents)"
+                ]
+              }
+            ],
+            "needUserConfirm": false,
+            "rationale": [
+              "Sheet name 'RebateInput' matches rebate scene",
+              "Headers map closely to REBATE_MX_TEMPLATE: Case Ticket→Ticket, Channel Partner→Distributor, Market→Geo, Transaction Currency→Txn Curr, Total Rebate→Total Back, Decision Date→Decision Dt",
+              "Sample rows show MX country code and rebate amounts",
+              "Perfect header count match (6) with REBATE_MX_TEMPLATE"
+            ]
+          },
+          "scoreDetails": {
+            "taskId": "0ea240aa-0367-42b5-9fc9-dd28155932d6",
+            "taskStatus": "TEMPLATE_RETRIEVED",
+            "sheetName": "RebateInput",
+            "headerCount": 6,
+            "needUserConfirm": false,
+            "reason": "Template, scene, and country matched expected values.",
+            "templateCandidates": {
+              "candidates": [
+                {
+                  "code": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "name": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=customs",
+                    "country=cn",
+                    "header_count=6",
+                    "headers_preview=Declaration No, Declaration Date, Exporter, Importer, HS Code, Declared Value"
+                  ]
+                },
+                {
+                  "code": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "name": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=fulfillment",
+                    "country=jp",
+                    "header_count=22",
+                    "headers_preview=Order ID, Order Date, Customer ID, Recipient Name, Delivery Postal Code, Delivery Address Line 1, Delivery Address Line 2, Contact Phone"
+                  ]
+                },
+                {
+                  "code": "PAYMENT_INVOICE_STANDARD_US",
+                  "name": "PAYMENT_INVOICE_STANDARD_US",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=payment",
+                    "country=us",
+                    "header_count=6",
+                    "headers_preview=Invoice No, Invoice Date, Buyer Name, Seller Name, Currency, Amount"
+                  ]
+                },
+                {
+                  "code": "CHANNEL_REBATE_STANDARD_MX",
+                  "name": "CHANNEL_REBATE_STANDARD_MX",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=22",
+                    "headers_preview=Claim ID, Partner Name, Country, Program Name, Claim Period Start, Claim Period End, Invoice Reference, Product Family"
+                  ]
+                },
+                {
+                  "code": "REBATE_MX_TEMPLATE",
+                  "name": "REBATE_MX_TEMPLATE",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=6",
+                    "headers_preview=Ticket, Distributor, Geo, Txn Curr, Total Back, Decision Dt"
+                  ]
+                },
+                {
+                  "code": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "name": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=settlement",
+                    "country=eu",
+                    "header_count=7",
+                    "headers_preview=Settlement No, Settlement Date, Vendor Name, Country, Net Amount, Tax Amount, Total Amount"
+                  ]
+                }
+              ],
+              "retrievedAt": "2026-05-08T03:07:01.377621+00:00"
+            }
+          },
+          "rawText": null
+        },
+        {
+          "caseId": "DP010",
+          "suite": "data_processing_template_identification",
+          "taskType": "data_processing_template_identification",
+          "title": "Channel rebate MX 22 unrelated headers",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "templateCode": "CHANNEL_REBATE_STANDARD_MX",
+            "sceneCode": "rebate",
+            "countryCode": "mx"
+          },
+          "actual": {
+            "templateCode": "CHANNEL_REBATE_STANDARD_MX",
+            "sceneCode": "rebate",
+            "countryCode": "mx",
+            "confidence": 0.95,
+            "alternatives": [
+              {
+                "templateCode": "REBATE_MX_TEMPLATE",
+                "sceneCode": "rebate",
+                "countryCode": "mx",
+                "confidence": 0.7,
+                "reasons": [
+                  "Partial header match (Ticket, Distributor, Geo, Txn Curr, Total Back, Decision Dt present)",
+                  "Same scene and country as input"
+                ]
+              }
+            ],
+            "needUserConfirm": false,
+            "rationale": [
+              "Sheet name 'ChannelRebateInput' strongly indicates rebate scene",
+              "Headers match CHANNEL_REBATE_STANDARD_MX template closely (e.g., Claim ID→Ticket, Partner Name→Distributor, Country→Geo, Program Name→Campaign, etc.)",
+              "Sample data shows 'Geo: mx' and MX-specific banking details (SWIFT/BIC codes)",
+              "REBATE_MX_TEMPLATE is a subset but less comprehensive match"
+            ]
+          },
+          "scoreDetails": {
+            "taskId": "34c36d27-30d9-4d0f-8a3e-c7aae92da8bc",
+            "taskStatus": "TEMPLATE_RETRIEVED",
+            "sheetName": "ChannelRebateInput",
+            "headerCount": 22,
+            "needUserConfirm": false,
+            "reason": "Template, scene, and country matched expected values.",
+            "templateCandidates": {
+              "candidates": [
+                {
+                  "code": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "name": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=customs",
+                    "country=cn",
+                    "header_count=6",
+                    "headers_preview=Declaration No, Declaration Date, Exporter, Importer, HS Code, Declared Value"
+                  ]
+                },
+                {
+                  "code": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "name": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=fulfillment",
+                    "country=jp",
+                    "header_count=22",
+                    "headers_preview=Order ID, Order Date, Customer ID, Recipient Name, Delivery Postal Code, Delivery Address Line 1, Delivery Address Line 2, Contact Phone"
+                  ]
+                },
+                {
+                  "code": "PAYMENT_INVOICE_STANDARD_US",
+                  "name": "PAYMENT_INVOICE_STANDARD_US",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=payment",
+                    "country=us",
+                    "header_count=6",
+                    "headers_preview=Invoice No, Invoice Date, Buyer Name, Seller Name, Currency, Amount"
+                  ]
+                },
+                {
+                  "code": "CHANNEL_REBATE_STANDARD_MX",
+                  "name": "CHANNEL_REBATE_STANDARD_MX",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=22",
+                    "headers_preview=Claim ID, Partner Name, Country, Program Name, Claim Period Start, Claim Period End, Invoice Reference, Product Family"
+                  ]
+                },
+                {
+                  "code": "REBATE_MX_TEMPLATE",
+                  "name": "REBATE_MX_TEMPLATE",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=6",
+                    "headers_preview=Ticket, Distributor, Geo, Txn Curr, Total Back, Decision Dt"
+                  ]
+                },
+                {
+                  "code": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "name": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=settlement",
+                    "country=eu",
+                    "header_count=7",
+                    "headers_preview=Settlement No, Settlement Date, Vendor Name, Country, Net Amount, Tax Amount, Total Amount"
+                  ]
+                }
+              ],
+              "retrievedAt": "2026-05-08T03:07:08.497900+00:00"
+            }
+          },
+          "rawText": null
+        },
+        {
+          "caseId": "DP011",
+          "suite": "data_processing_template_identification",
+          "taskType": "data_processing_template_identification",
+          "title": "Ambiguous trade document",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "templateCode": null,
+            "sceneCode": null,
+            "countryCode": null
+          },
+          "actual": {
+            "templateCode": null,
+            "sceneCode": null,
+            "countryCode": null,
+            "confidence": 0.4,
+            "alternatives": [
+              {
+                "templateCode": "PAYMENT_INVOICE_STANDARD_US",
+                "sceneCode": "payment",
+                "countryCode": "us",
+                "confidence": 0.6,
+                "reasons": [
+                  "Header count matches (6)",
+                  "Similar header structure (document number, date, parties, currency, value)",
+                  "Currency field present in both"
+                ]
+              },
+              {
+                "templateCode": "CUSTOMS_DECLARATION_STANDARD_CN",
+                "sceneCode": "customs",
+                "countryCode": "cn",
+                "confidence": 0.5,
+                "reasons": [
+                  "Header count matches (6)",
+                  "Similar document structure (document number, date, parties, value)",
+                  "One sample row shows CNY currency which suggests China context"
+                ]
+              },
+              {
+                "templateCode": "REBATE_MX_TEMPLATE",
+                "sceneCode": "rebate",
+                "countryCode": "mx",
+                "confidence": 0.3,
+                "reasons": [
+                  "Header count matches (6)",
+                  "Similar document identifier structure",
+                  "Currency field present"
+                ]
+              }
+            ],
+            "needUserConfirm": true,
+            "rationale": [
+              "Input has 6 headers matching multiple catalog templates",
+              "Headers show document number, date, two parties, currency, and value",
+              "Sample rows show both USD and CNY currencies making country ambiguous",
+              "No clear scene indicators (customs, payment, rebate all plausible)",
+              "Multiple templates have similar header structures and counts"
+            ]
+          },
+          "scoreDetails": {
+            "taskId": "3b443e9f-49c3-4539-a5c4-7e2bb62d51a5",
+            "taskStatus": "TEMPLATE_RETRIEVED",
+            "sheetName": "AmbiguousTrade",
+            "headerCount": 6,
+            "needUserConfirm": true,
+            "reason": "Ambiguous case correctly stayed unresolved.",
+            "templateCandidates": {
+              "candidates": [
+                {
+                  "code": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "name": "CUSTOMS_DECLARATION_STANDARD_CN",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=customs",
+                    "country=cn",
+                    "header_count=6",
+                    "headers_preview=Declaration No, Declaration Date, Exporter, Importer, HS Code, Declared Value"
+                  ]
+                },
+                {
+                  "code": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "name": "ORDER_FULFILLMENT_STANDARD_JP",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=fulfillment",
+                    "country=jp",
+                    "header_count=22",
+                    "headers_preview=Order ID, Order Date, Customer ID, Recipient Name, Delivery Postal Code, Delivery Address Line 1, Delivery Address Line 2, Contact Phone"
+                  ]
+                },
+                {
+                  "code": "PAYMENT_INVOICE_STANDARD_US",
+                  "name": "PAYMENT_INVOICE_STANDARD_US",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=payment",
+                    "country=us",
+                    "header_count=6",
+                    "headers_preview=Invoice No, Invoice Date, Buyer Name, Seller Name, Currency, Amount"
+                  ]
+                },
+                {
+                  "code": "CHANNEL_REBATE_STANDARD_MX",
+                  "name": "CHANNEL_REBATE_STANDARD_MX",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=22",
+                    "headers_preview=Claim ID, Partner Name, Country, Program Name, Claim Period Start, Claim Period End, Invoice Reference, Product Family"
+                  ]
+                },
+                {
+                  "code": "REBATE_MX_TEMPLATE",
+                  "name": "REBATE_MX_TEMPLATE",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=rebate",
+                    "country=mx",
+                    "header_count=6",
+                    "headers_preview=Ticket, Distributor, Geo, Txn Curr, Total Back, Decision Dt"
+                  ]
+                },
+                {
+                  "code": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "name": "VENDOR_SETTLEMENT_STANDARD_EU",
+                  "score": 0.0,
+                  "reasons": [
+                    "source=template_catalog_md",
+                    "scene=settlement",
+                    "country=eu",
+                    "header_count=7",
+                    "headers_preview=Settlement No, Settlement Date, Vendor Name, Country, Net Amount, Tax Amount, Total Amount"
+                  ]
+                }
+              ],
+              "retrievedAt": "2026-05-08T03:07:15.027041+00:00"
+            }
+          },
+          "rawText": null
+        }
+      ],
+      "job_creation_from_scene": [
+        {
+          "caseId": "JC001",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "电商订单与支付流水日对账",
+          "score": 65,
+          "outcome": "needs_review",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "ecommerce",
+              "payment_gateway"
+            ],
+            "matchKeys": [
+              "order_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [
+              "amount"
+            ]
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "erp",
+              "bank"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [
+              "amount",
+              "date"
+            ],
+            "filters": [
+              "optional_filter_code"
+            ],
+            "summary": "创建电商订单与支付流水日对账作业，每天早上8点运行，按订单号匹配，检查支付金额和状态，金额允许1分钱差异。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": false,\n  \"systems\": [\"erp\", \"bank\"],\n  \"matchKeys\": [\"transaction_id\"],\n  \"compareMetrics\": [\"amount\", \"status\"],\n  \"schedule\": [\"daily\"],\n  \"tolerances\": [\"amount\", \"date\"],\n  \"filters\": [\"optional_filter_code\"],\n  \"summary\": \"创建电商订单与支付流水日对账作业，每天早上8点运行，按订单号匹配，检查支付金额和状态，金额允许1分钱差异。\"\n}"
+        },
+        {
+          "caseId": "JC002",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "ERP 应收与总账月末对账",
+          "score": 45,
+          "outcome": "needs_review",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "erp",
+              "general_ledger"
+            ],
+            "matchKeys": [
+              "customer_id",
+              "invoice_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "tax"
+            ],
+            "schedule": [
+              "monthly"
+            ],
+            "tolerances": []
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": true,
+            "systems": [
+              "erp",
+              "bank"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [
+              "amount",
+              "date"
+            ],
+            "filters": [
+              "optional_filter_code"
+            ],
+            "summary": "用户请求创建月末对账任务，但缺少关键信息（如系统、匹配键、比较指标、计划、容差和过滤器），需要进一步澄清。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": true,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": true,\n  \"systems\": [\"erp\", \"bank\"],\n  \"matchKeys\": [\"transaction_id\"],\n  \"compareMetrics\": [\"amount\", \"status\"],\n  \"schedule\": [\"daily\"],\n  \"tolerances\": [\"amount\", \"date\"],\n  \"filters\": [\"optional_filter_code\"],\n  \"summary\": \"用户请求创建月末对账任务，但缺少关键信息（如系统、匹配键、比较指标、计划、容差和过滤器），需要进一步澄清。\"\n}"
+        },
+        {
+          "caseId": "JC003",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "银行回单与 ERP 收款核销",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": []
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [
+              "amount",
+              "date"
+            ],
+            "filters": [
+              "optional_filter_code"
+            ],
+            "summary": "银行到账与ERP收款核销的每日对账，按流水号匹配，核对到账金额。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": false,\n  \"systems\": [\"bank\", \"erp\"],\n  \"matchKeys\": [\"transaction_id\"],\n  \"compareMetrics\": [\"amount\"],\n  \"schedule\": [\"daily\"],\n  \"tolerances\": [\"amount\", \"date\"],\n  \"filters\": [\"optional_filter_code\"],\n  \"summary\": \"银行到账与ERP收款核销的每日对账，按流水号匹配，核对到账金额。\"\n}"
+        },
+        {
+          "caseId": "JC004",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "退款单与支付退款流水",
+          "score": 62,
+          "outcome": "needs_review",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "ecommerce",
+              "payment_gateway"
+            ],
+            "matchKeys": [
+              "refund_id"
+            ],
+            "compareMetrics": [
+              "amount"
+            ],
+            "schedule": [
+              "adhoc"
+            ],
+            "tolerances": [
+              "amount"
+            ]
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "erp",
+              "bank"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [
+              "amount",
+              "date"
+            ],
+            "filters": [
+              "optional_filter_code"
+            ],
+            "summary": "创建退款对账任务，核对订单系统和支付平台的退款数据，按退款单号匹配，确保金额无差异。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": false,\n  \"systems\": [\"erp\", \"bank\"],\n  \"matchKeys\": [\"transaction_id\"],\n  \"compareMetrics\": [\"amount\", \"status\"],\n  \"schedule\": [\"daily\"],\n  \"tolerances\": [\"amount\", \"date\"],\n  \"filters\": [\"optional_filter_code\"],\n  \"summary\": \"创建退款对账任务，核对订单系统和支付平台的退款数据，按退款单号匹配，确保金额无差异。\"\n}"
+        },
+        {
+          "caseId": "JC005",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "仓储出库与订单履约",
+          "score": 90,
+          "outcome": "passed",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "wms",
+              "ecommerce"
+            ],
+            "matchKeys": [
+              "order_id",
+              "sku"
+            ],
+            "compareMetrics": [
+              "quantity",
+              "status"
+            ],
+            "schedule": [
+              "intraday"
+            ],
+            "tolerances": []
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "wms",
+              "order_fulfillment"
+            ],
+            "matchKeys": [
+              "order_id",
+              "sku"
+            ],
+            "compareMetrics": [
+              "quantity",
+              "status"
+            ],
+            "schedule": [
+              "intraday"
+            ],
+            "tolerances": [
+              "amount",
+              "date"
+            ],
+            "filters": [
+              "optional_filter_code"
+            ],
+            "summary": "创建仓储出库与订单履约的对账任务，按订单号和SKU匹配，每小时运行，检查数量和状态。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "order_fulfillment",
+              "wms"
+            ],
+            "matchKeys": [
+              "order_id",
+              "sku"
+            ],
+            "compareMetrics": [
+              "quantity",
+              "status"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": false,\n  \"systems\": [\"wms\", \"order_fulfillment\"],\n  \"matchKeys\": [\"order_id\", \"sku\"],\n  \"compareMetrics\": [\"quantity\", \"status\"],\n  \"schedule\": [\"intraday\"],\n  \"tolerances\": [\"amount\", \"date\"],\n  \"filters\": [\"optional_filter_code\"],\n  \"summary\": \"创建仓储出库与订单履约的对账任务，按订单号和SKU匹配，每小时运行，检查数量和状态。\"\n}"
+        },
+        {
+          "caseId": "JC006",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "跨币种结算对账",
+          "score": 70,
+          "outcome": "needs_review",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "settlement_platform",
+              "erp"
+            ],
+            "matchKeys": [
+              "settlement_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "currency"
+            ],
+            "schedule": [
+              "weekly"
+            ],
+            "tolerances": []
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "erp",
+              "bank"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ],
+            "schedule": [
+              "weekly"
+            ],
+            "tolerances": [
+              "amount",
+              "date"
+            ],
+            "filters": [
+              "optional_filter_code"
+            ],
+            "summary": "创建供应商结算对账任务，按结算单号匹配，对比原币金额、本位币金额和币种，每周一执行。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": false,\n  \"systems\": [\"erp\", \"bank\"],\n  \"matchKeys\": [\"transaction_id\"],\n  \"compareMetrics\": [\"amount\", \"status\"],\n  \"schedule\": [\"weekly\"],\n  \"tolerances\": [\"amount\", \"date\"],\n  \"filters\": [\"optional_filter_code\"],\n  \"summary\": \"创建供应商结算对账任务，按结算单号匹配，对比原币金额、本位币金额和币种，每周一执行。\"\n}"
+        },
+        {
+          "caseId": "JC007",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "海关申报与 ERP 报关单",
+          "score": 67,
+          "outcome": "needs_review",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "customs",
+              "erp"
+            ],
+            "matchKeys": [
+              "declaration_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "tax",
+              "status"
+            ],
+            "schedule": [
+              "adhoc"
+            ],
+            "tolerances": []
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "erp",
+              "bank"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [
+              "amount",
+              "date"
+            ],
+            "filters": [
+              "optional_filter_code"
+            ],
+            "summary": "创建报关数据对账任务，使用报关单号匹配，核对金额和状态。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": false,\n  \"systems\": [\"erp\", \"bank\"],\n  \"matchKeys\": [\"transaction_id\"],\n  \"compareMetrics\": [\"amount\", \"status\"],\n  \"schedule\": [\"daily\"],\n  \"tolerances\": [\"amount\", \"date\"],\n  \"filters\": [\"optional_filter_code\"],\n  \"summary\": \"创建报关数据对账任务，使用报关单号匹配，核对金额和状态。\"\n}"
+        },
+        {
+          "caseId": "JC008",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "税局发票与 ERP 销项",
+          "score": 73,
+          "outcome": "needs_review",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "tax_portal",
+              "erp"
+            ],
+            "matchKeys": [
+              "invoice_code",
+              "invoice_id"
+            ],
+            "compareMetrics": [
+              "tax",
+              "amount"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": []
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "tax_authority",
+              "erp"
+            ],
+            "matchKeys": [
+              "invoice_code",
+              "invoice_number"
+            ],
+            "compareMetrics": [
+              "tax_amount",
+              "total_amount"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [],
+            "filters": [],
+            "summary": "创建税局发票与ERP销项发票的日度对账任务，按发票代码和号码匹配，核对税额和价税合计。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "erp",
+              "tax_authority"
+            ],
+            "matchKeys": [
+              "invoice_code",
+              "invoice_number"
+            ],
+            "compareMetrics": [
+              "tax_amount",
+              "total_amount"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": false,\n  \"systems\": [\n    \"tax_authority\",\n    \"erp\"\n  ],\n  \"matchKeys\": [\n    \"invoice_code\",\n    \"invoice_number\"\n  ],\n  \"compareMetrics\": [\n    \"tax_amount\",\n    \"total_amount\"\n  ],\n  \"schedule\": [\n    \"daily\"\n  ],\n  \"tolerances\": [],\n  \"filters\": [],\n  \"summary\": \"创建税局发票与ERP销项发票的日度对账任务，按发票代码和号码匹配，核对税额和价税合计。\"\n}"
+        },
+        {
+          "caseId": "JC009",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "POS 与总账汇总核对",
+          "score": 73,
+          "outcome": "needs_review",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "pos",
+              "general_ledger"
+            ],
+            "matchKeys": [
+              "store_id",
+              "biz_date"
+            ],
+            "compareMetrics": [
+              "amount",
+              "order_count"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": []
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "pos",
+              "erp"
+            ],
+            "matchKeys": [
+              "store_id",
+              "business_date"
+            ],
+            "compareMetrics": [
+              "sales_amount",
+              "transaction_count"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [
+              "amount",
+              "date"
+            ],
+            "filters": [
+              "optional_filter_code"
+            ],
+            "summary": "每天闭店后，按门店和营业日期匹配POS销售汇总与总账收入凭证，核对销售额和交易单数。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "erp",
+              "pos"
+            ],
+            "matchKeys": [
+              "business_date",
+              "store_id"
+            ],
+            "compareMetrics": [
+              "sales_amount",
+              "transaction_count"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": false,\n  \"systems\": [\"pos\", \"erp\"],\n  \"matchKeys\": [\"store_id\", \"business_date\"],\n  \"compareMetrics\": [\"sales_amount\", \"transaction_count\"],\n  \"schedule\": [\"daily\"],\n  \"tolerances\": [\"amount\", \"date\"],\n  \"filters\": [\"optional_filter_code\"],\n  \"summary\": \"每天闭店后，按门店和营业日期匹配POS销售汇总与总账收入凭证，核对销售额和交易单数。\"\n}"
+        },
+        {
+          "caseId": "JC010",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "模糊来源系统",
+          "score": 85,
+          "outcome": "passed",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": true,
+            "systems": [],
+            "matchKeys": [
+              "order_id"
+            ],
+            "compareMetrics": [],
+            "schedule": [],
+            "tolerances": []
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": true,
+            "systems": [],
+            "matchKeys": [],
+            "compareMetrics": [],
+            "schedule": [],
+            "tolerances": [],
+            "filters": [],
+            "summary": "来源系统不明确，无法确定对账系统。请提供具体系统名称（如erp、bank等）。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": true,
+            "systems": [],
+            "matchKeys": [],
+            "compareMetrics": []
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": true,\n  \"systems\": [],\n  \"matchKeys\": [],\n  \"compareMetrics\": [],\n  \"schedule\": [],\n  \"tolerances\": [],\n  \"filters\": [],\n  \"summary\": \"来源系统不明确，无法确定对账系统。请提供具体系统名称（如erp、bank等）。\"\n}"
+        },
+        {
+          "caseId": "JC011",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "缺少匹配键",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": true,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [],
+            "compareMetrics": [
+              "amount"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": []
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": true,
+            "systems": [
+              "erp",
+              "bank"
+            ],
+            "matchKeys": [],
+            "compareMetrics": [
+              "amount"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [],
+            "filters": [],
+            "summary": "缺少匹配键信息，无法创建核对任务"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": true,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [],
+            "compareMetrics": [
+              "amount"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": true,\n  \"systems\": [\n    \"erp\",\n    \"bank\"\n  ],\n  \"matchKeys\": [],\n  \"compareMetrics\": [\n    \"amount\"\n  ],\n  \"schedule\": [\n    \"daily\"\n  ],\n  \"tolerances\": [],\n  \"filters\": [],\n  \"summary\": \"缺少匹配键信息，无法创建核对任务\"\n}"
+        },
+        {
+          "caseId": "JC012",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "自然语言同义表达",
+          "score": 65,
+          "outcome": "needs_review",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "ecommerce",
+              "payment_gateway"
+            ],
+            "matchKeys": [
+              "order_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": []
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "erp",
+              "bank"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [
+              "amount",
+              "date"
+            ],
+            "filters": [
+              "optional_filter_code"
+            ],
+            "summary": "创建支付对账作业，按商户订单号匹配商城与三方支付记录，每日凌晨执行，比较金额和状态。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": false,\n  \"systems\": [\"erp\", \"bank\"],\n  \"matchKeys\": [\"transaction_id\"],\n  \"compareMetrics\": [\"amount\", \"status\"],\n  \"schedule\": [\"daily\"],\n  \"tolerances\": [\"amount\", \"date\"],\n  \"filters\": [\"optional_filter_code\"],\n  \"summary\": \"创建支付对账作业，按商户订单号匹配商城与三方支付记录，每日凌晨执行，比较金额和状态。\"\n}"
+        },
+        {
+          "caseId": "JC013",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "中英文混输",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": []
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [],
+            "filters": [],
+            "summary": "创建银行对账单与ERP现金收据的每日对账任务，按交易ID匹配，比较金额和状态。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": false,\n  \"systems\": [\"bank\", \"erp\"],\n  \"matchKeys\": [\"transaction_id\"],\n  \"compareMetrics\": [\"amount\", \"status\"],\n  \"schedule\": [\"daily\"],\n  \"tolerances\": [],\n  \"filters\": [],\n  \"summary\": \"创建银行对账单与ERP现金收据的每日对账任务，按交易ID匹配，比较金额和状态。\"\n}"
+        },
+        {
+          "caseId": "JC014",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "包含过滤条件",
+          "score": 62,
+          "outcome": "needs_review",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "ecommerce",
+              "payment_gateway"
+            ],
+            "matchKeys": [
+              "order_id"
+            ],
+            "compareMetrics": [],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [],
+            "filters": [
+              "us",
+              "exclude_cancelled"
+            ]
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "erp",
+              "bank"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [
+              "amount",
+              "date"
+            ],
+            "filters": [
+              "optional_filter_code"
+            ],
+            "summary": "创建美国站订单支付对账任务，按订单号匹配，每日执行，过滤取消订单"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": false,\n  \"systems\": [\"erp\", \"bank\"],\n  \"matchKeys\": [\"transaction_id\"],\n  \"compareMetrics\": [\"amount\", \"status\"],\n  \"schedule\": [\"daily\"],\n  \"tolerances\": [\"amount\", \"date\"],\n  \"filters\": [\"optional_filter_code\"],\n  \"summary\": \"创建美国站订单支付对账任务，按订单号匹配，每日执行，过滤取消订单\"\n}"
+        },
+        {
+          "caseId": "JC015",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "日期容差窗口",
+          "score": 75,
+          "outcome": "needs_review",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "ecommerce"
+            ],
+            "matchKeys": [
+              "order_id"
+            ],
+            "compareMetrics": [
+              "amount"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [
+              "amount",
+              "date"
+            ]
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "erp",
+              "bank"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [
+              "amount",
+              "date"
+            ],
+            "filters": [
+              "optional_filter_code"
+            ],
+            "summary": "创建银行到账与订单支付成功的每日对账任务，按订单号匹配，金额必须一致，允许到账日期晚两天。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "status"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": false,\n  \"systems\": [\"erp\", \"bank\"],\n  \"matchKeys\": [\"transaction_id\"],\n  \"compareMetrics\": [\"amount\", \"status\"],\n  \"schedule\": [\"daily\"],\n  \"tolerances\": [\"amount\", \"date\"],\n  \"filters\": [\"optional_filter_code\"],\n  \"summary\": \"创建银行到账与订单支付成功的每日对账任务，按订单号匹配，金额必须一致，允许到账日期晚两天。\"\n}"
+        },
+        {
+          "caseId": "JC016",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "多键匹配和费用比较",
+          "score": 75,
+          "outcome": "needs_review",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "erp",
+              "settlement_platform"
+            ],
+            "matchKeys": [
+              "vendor_id",
+              "settlement_month",
+              "settlement_id"
+            ],
+            "compareMetrics": [
+              "amount",
+              "fee"
+            ],
+            "schedule": [
+              "adhoc"
+            ],
+            "tolerances": []
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "erp",
+              "settlement_platform"
+            ],
+            "matchKeys": [
+              "supplier_code",
+              "settlement_month",
+              "settlement_number"
+            ],
+            "compareMetrics": [
+              "settlement_amount",
+              "handling_fee"
+            ],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [
+              "amount",
+              "date"
+            ],
+            "filters": [
+              "optional_filter_code"
+            ],
+            "summary": "为供应商结算创建对账任务，按供应商编码、结算月份、结算单号匹配，比较结算金额和手续费。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": false,
+            "systems": [
+              "erp",
+              "settlement_platform"
+            ],
+            "matchKeys": [
+              "settlement_month",
+              "settlement_number",
+              "supplier_code"
+            ],
+            "compareMetrics": [
+              "handling_fee",
+              "settlement_amount"
+            ]
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": false,\n  \"systems\": [\"erp\", \"settlement_platform\"],\n  \"matchKeys\": [\"supplier_code\", \"settlement_month\", \"settlement_number\"],\n  \"compareMetrics\": [\"settlement_amount\", \"handling_fee\"],\n  \"schedule\": [\"daily\"],\n  \"tolerances\": [\"amount\", \"date\"],\n  \"filters\": [\"optional_filter_code\"],\n  \"summary\": \"为供应商结算创建对账任务，按供应商编码、结算月份、结算单号匹配，比较结算金额和手续费。\"\n}"
+        },
+        {
+          "caseId": "JC017",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "冲突指令",
+          "score": 97,
+          "outcome": "passed",
+          "expected": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": true,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [],
+            "schedule": [
+              "daily",
+              "weekly"
+            ],
+            "tolerances": []
+          },
+          "actual": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": true,
+            "systems": [
+              "erp",
+              "bank"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": [],
+            "schedule": [
+              "daily"
+            ],
+            "tolerances": [],
+            "filters": [],
+            "summary": "用户要求每日对账，但每周一额外运行完整对账，系统为银行和ERP，按流水号匹配。但缺少比较指标和容忍度信息，需要澄清。"
+          },
+          "scoreDetails": {
+            "intent": "create_reconciliation_job_from_existing_scene",
+            "needClarification": true,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [
+              "transaction_id"
+            ],
+            "compareMetrics": []
+          },
+          "rawText": "{\n  \"intent\": \"create_reconciliation_job_from_existing_scene\",\n  \"needClarification\": true,\n  \"systems\": [\"erp\", \"bank\"],\n  \"matchKeys\": [\"transaction_id\"],\n  \"compareMetrics\": [],\n  \"schedule\": [\"daily\"],\n  \"tolerances\": [],\n  \"filters\": [],\n  \"summary\": \"用户要求每日对账，但每周一额外运行完整对账，系统为银行和ERP，按流水号匹配。但缺少比较指标和容忍度信息，需要澄清。\"\n}"
+        },
+        {
+          "caseId": "JC018",
+          "suite": "job_creation_from_scene",
+          "taskType": "job_creation_from_scene",
+          "title": "明确要求不要创建",
+          "score": 80,
+          "outcome": "passed",
+          "expected": {
+            "intent": "consultation_only",
+            "needClarification": false,
+            "systems": [
+              "bank",
+              "erp"
+            ],
+            "matchKeys": [],
+            "compareMetrics": [],
+            "schedule": [],
+            "tolerances": []
+          },
+          "actual": {
+            "intent": "consultation_only",
+            "needClarification": false,
+            "systems": [],
+            "matchKeys": [],
+            "compareMetrics": [],
+            "schedule": [],
+            "tolerances": [],
+            "filters": [],
+            "summary": "用户仅咨询银行和ERP收款对账的匹配字段，未要求创建任务。"
+          },
+          "scoreDetails": {
+            "intent": "consultation_only",
+            "needClarification": false,
+            "systems": [],
+            "matchKeys": [],
+            "compareMetrics": []
+          },
+          "rawText": "{\n  \"intent\": \"consultation_only\",\n  \"needClarification\": false,\n  \"systems\": [],\n  \"matchKeys\": [],\n  \"compareMetrics\": [],\n  \"schedule\": [],\n  \"tolerances\": [],\n  \"filters\": [],\n  \"summary\": \"用户仅咨询银行和ERP收款对账的匹配字段，未要求创建任务。\"\n}"
+        }
+      ],
+      "diff_analysis_from_result_and_sop": [
+        {
+          "caseId": "DA001",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "源端缺失",
+          "score": 85,
+          "outcome": "passed",
+          "expected": {
+            "sop": {
+              "sopCode": "payment_missing_order",
+              "description": "支付侧存在、订单侧缺失时，优先检查源端缺数与凌晨批次延迟。",
+              "checks": [
+                "CHECK_PAYMENT_EXISTS_ORDER_MISSING: 支付侧有记录而订单侧无记录",
+                "CHECK_BATCH_WINDOW_DAWN: 异常集中在凌晨批次",
+                "CHECK_AMOUNT_STILL_MATCHED: 金额本身一致"
+              ],
+              "mustHitChecks": [
+                "CHECK_PAYMENT_EXISTS_ORDER_MISSING",
+                "CHECK_BATCH_WINDOW_DAWN"
+              ]
+            },
+            "primaryCauses": [
+              "missing_source_data",
+              "late_arrival"
+            ],
+            "needHumanReview": false,
+            "evidenceKeywords": [
+              "订单侧没有记录",
+              "凌晨",
+              "导入批次"
+            ],
+            "actionKeywords": [
+              "补数",
+              "检查同步",
+              "重跑"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "payment_missing_order"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_PAYMENT_EXISTS_ORDER_MISSING",
+                "hit": true,
+                "reason": "支付侧有记录而订单侧无记录"
+              },
+              {
+                "checkCode": "CHECK_BATCH_WINDOW_DAWN",
+                "hit": true,
+                "reason": "异常集中在凌晨批次"
+              },
+              {
+                "checkCode": "CHECK_AMOUNT_STILL_MATCHED",
+                "hit": true,
+                "reason": "金额完全一致"
+              }
+            ],
+            "primaryCauses": [
+              "missing_source_data"
+            ],
+            "needHumanReview": false,
+            "evidence": [
+              "1000笔订单中有32笔支付侧有记录、订单侧没有记录；异常几乎都发生在凌晨导入批次；金额完全一致"
+            ],
+            "recommendedActions": [
+              "检查订单侧凌晨批次数据导入延迟或失败原因"
+            ],
+            "summary": "支付记录存在但订单记录缺失，集中在凌晨批次，金额一致，符合源端数据缺失特征"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "payment_missing_order"
+            ],
+            "triggeredChecks": [
+              "check_amount_still_matched",
+              "check_batch_window_dawn",
+              "check_payment_exists_order_missing"
+            ],
+            "primaryCauses": [
+              "missing_source_data"
+            ],
+            "needHumanReview": false
+          },
+          "rawText": "{\n  \"matchedSops\": [\"payment_missing_order\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_PAYMENT_EXISTS_ORDER_MISSING\",\n      \"hit\": true,\n      \"reason\": \"支付侧有记录而订单侧无记录\"\n    },\n    {\n      \"checkCode\": \"CHECK_BATCH_WINDOW_DAWN\",\n      \"hit\": true,\n      \"reason\": \"异常集中在凌晨批次\"\n    },\n    {\n      \"checkCode\": \"CHECK_AMOUNT_STILL_MATCHED\",\n      \"hit\": true,\n      \"reason\": \"金额完全一致\"\n    }\n  ],\n  \"primaryCauses\": [\"missing_source_data\"],\n  \"needHumanReview\": false,\n  \"evidence\": [\"1000笔订单中有32笔支付侧有记录、订单侧没有记录；异常几乎都发生在凌晨导入批次；金额完全一致\"],\n  \"recommendedActions\": [\"检查订单侧凌晨批次数据导入延迟或失败原因\"],\n  \"summary\": \"支付记录存在但订单记录缺失，集中在凌晨批次，金额一致，符合源端数据缺失特征\"\n}"
+        },
+        {
+          "caseId": "DA002",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "重复流水",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "sop": {
+              "sopCode": "bank_duplicate",
+              "description": "银行侧记录数偏多且同一流水号重复时，优先按重复导入或幂等失败分析。",
+              "checks": [
+                "CHECK_BANK_COUNT_GREATER: 银行侧记录数大于 ERP",
+                "CHECK_SAME_TXN_DUPLICATED: 相同流水号重复出现",
+                "CHECK_DUP_AMOUNT_EQUAL: 重复记录金额一致"
+              ],
+              "mustHitChecks": [
+                "CHECK_SAME_TXN_DUPLICATED"
+              ]
+            },
+            "primaryCauses": [
+              "duplicate_records"
+            ],
+            "needHumanReview": false,
+            "evidenceKeywords": [
+              "重复",
+              "相同流水号"
+            ],
+            "actionKeywords": [
+              "去重",
+              "检查幂等"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "bank_duplicate"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_BANK_COUNT_GREATER",
+                "hit": true,
+                "reason": "银行侧记录数5800条大于ERP侧5720条"
+              },
+              {
+                "checkCode": "CHECK_SAME_TXN_DUPLICATED",
+                "hit": true,
+                "reason": "80条相同流水号重复两次"
+              },
+              {
+                "checkCode": "CHECK_DUP_AMOUNT_EQUAL",
+                "hit": true,
+                "reason": "重复记录金额一致"
+              }
+            ],
+            "primaryCauses": [
+              "duplicate_records"
+            ],
+            "needHumanReview": false,
+            "evidence": [
+              "银行侧5800条记录，ERP侧5720条记录，80条相同流水号重复记录且金额一致"
+            ],
+            "recommendedActions": [
+              "检查银行数据导入流程是否存在重复提交或幂等问题"
+            ],
+            "summary": "银行侧存在80条重复流水记录导致数量差异"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "bank_duplicate"
+            ],
+            "triggeredChecks": [
+              "check_bank_count_greater",
+              "check_dup_amount_equal",
+              "check_same_txn_duplicated"
+            ],
+            "primaryCauses": [
+              "duplicate_records"
+            ],
+            "needHumanReview": false
+          },
+          "rawText": "{\n  \"matchedSops\": [\"bank_duplicate\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_BANK_COUNT_GREATER\",\n      \"hit\": true,\n      \"reason\": \"银行侧记录数5800条大于ERP侧5720条\"\n    },\n    {\n      \"checkCode\": \"CHECK_SAME_TXN_DUPLICATED\",\n      \"hit\": true,\n      \"reason\": \"80条相同流水号重复两次\"\n    },\n    {\n      \"checkCode\": \"CHECK_DUP_AMOUNT_EQUAL\",\n      \"hit\": true,\n      \"reason\": \"重复记录金额一致\"\n    }\n  ],\n  \"primaryCauses\": [\"duplicate_records\"],\n  \"needHumanReview\": false,\n  \"evidence\": [\"银行侧5800条记录，ERP侧5720条记录，80条相同流水号重复记录且金额一致\"],\n  \"recommendedActions\": [\"检查银行数据导入流程是否存在重复提交或幂等问题\"],\n  \"summary\": \"银行侧存在80条重复流水记录导致数量差异\"\n}"
+        },
+        {
+          "caseId": "DA003",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "主键错位",
+          "score": 75,
+          "outcome": "needs_review",
+          "expected": {
+            "primaryCauses": [
+              "key_mismatch"
+            ],
+            "needHumanReview": false,
+            "evidenceKeywords": [
+              "外部订单号",
+              "内部订单号",
+              "未匹配"
+            ],
+            "actionKeywords": [
+              "统一主键",
+              "映射表"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "unknown_insufficient_evidence"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_KEY_MISMATCH",
+                "hit": true,
+                "reason": "订单侧使用外部订单号，对账平台使用内部订单号，导致主键不匹配"
+              }
+            ],
+            "primaryCauses": [
+              "key_mismatch"
+            ],
+            "needHumanReview": true,
+            "evidence": [
+              "订单侧使用外部订单号，对账平台使用内部订单号，导致大量未匹配但金额分布基本相同"
+            ],
+            "recommendedActions": [
+              "检查订单号映射规则，统一主键标识符"
+            ],
+            "summary": "主键标识符不一致导致匹配失败，需要人工审核映射关系"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "unknown_insufficient_evidence"
+            ],
+            "triggeredChecks": [
+              "check_key_mismatch"
+            ],
+            "primaryCauses": [
+              "key_mismatch"
+            ],
+            "needHumanReview": true
+          },
+          "rawText": "```json\n{\n  \"matchedSops\": [\"unknown_insufficient_evidence\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_KEY_MISMATCH\",\n      \"hit\": true,\n      \"reason\": \"订单侧使用外部订单号，对账平台使用内部订单号，导致主键不匹配\"\n    }\n  ],\n  \"primaryCauses\": [\"key_mismatch\"],\n  \"needHumanReview\": true,\n  \"evidence\": [\"订单侧使用外部订单号，对账平台使用内部订单号，导致大量未匹配但金额分布基本相同\"],\n  \"recommendedActions\": [\"检查订单号映射规则，统一主键标识符\"],\n  \"summary\": \"主键标识符不一致导致匹配失败，需要人工审核映射关系\"\n}\n```"
+        },
+        {
+          "caseId": "DA004",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "四舍五入误差",
+          "score": 88,
+          "outcome": "passed",
+          "expected": {
+            "sop": {
+              "sopCode": "fx_rounding",
+              "description": "当原币一致、本位币有微小差异时，检查汇率表版本和四舍五入规则。",
+              "checks": [
+                "CHECK_DELTA_WITHIN_ONE_CENT: 差异在 0.01 以内",
+                "CHECK_ORIGINAL_CCY_MATCHED: 原币金额一致",
+                "CHECK_LOCAL_CCY_MISMATCH: 本位币换算后不一致"
+              ],
+              "mustHitChecks": [
+                "CHECK_DELTA_WITHIN_ONE_CENT",
+                "CHECK_LOCAL_CCY_MISMATCH"
+              ]
+            },
+            "primaryCauses": [
+              "amount_rounding",
+              "exchange_rate_mismatch"
+            ],
+            "needHumanReview": false,
+            "evidenceKeywords": [
+              "0.01",
+              "本位币",
+              "换算"
+            ],
+            "actionKeywords": [
+              "容差",
+              "汇率",
+              "舍入规则"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "fx_rounding"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_DELTA_WITHIN_ONE_CENT",
+                "hit": true,
+                "reason": "绝大多数差异都在0.01以内"
+              },
+              {
+                "checkCode": "CHECK_ORIGINAL_CCY_MATCHED",
+                "hit": true,
+                "reason": "原始币种金额一致"
+              },
+              {
+                "checkCode": "CHECK_LOCAL_CCY_MISMATCH",
+                "hit": true,
+                "reason": "本位币换算后出现尾差"
+              }
+            ],
+            "primaryCauses": [
+              "amount_rounding"
+            ],
+            "needHumanReview": false,
+            "evidence": [
+              "差异金额在0.01以内，原币金额一致，本位币换算后出现微小差异"
+            ],
+            "recommendedActions": [
+              "检查汇率表版本和四舍五入规则配置"
+            ],
+            "summary": "汇率换算四舍五入导致的尾差问题"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "fx_rounding"
+            ],
+            "triggeredChecks": [
+              "check_delta_within_one_cent",
+              "check_local_ccy_mismatch",
+              "check_original_ccy_matched"
+            ],
+            "primaryCauses": [
+              "amount_rounding"
+            ],
+            "needHumanReview": false
+          },
+          "rawText": "```json\n{\n  \"matchedSops\": [\"fx_rounding\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_DELTA_WITHIN_ONE_CENT\",\n      \"hit\": true,\n      \"reason\": \"绝大多数差异都在0.01以内\"\n    },\n    {\n      \"checkCode\": \"CHECK_ORIGINAL_CCY_MATCHED\",\n      \"hit\": true,\n      \"reason\": \"原始币种金额一致\"\n    },\n    {\n      \"checkCode\": \"CHECK_LOCAL_CCY_MISMATCH\",\n      \"hit\": true,\n      \"reason\": \"本位币换算后出现尾差\"\n    }\n  ],\n  \"primaryCauses\": [\"amount_rounding\"],\n  \"needHumanReview\": false,\n  \"evidence\": [\"差异金额在0.01以内，原币金额一致，本位币换算后出现微小差异\"],\n  \"recommendedActions\": [\"检查汇率表版本和四舍五入规则配置\"],\n  \"summary\": \"汇率换算四舍五入导致的尾差问题\"\n}\n```"
+        },
+        {
+          "caseId": "DA005",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "税率口径不一致",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "sop": {
+              "sopCode": "tax_rule_gap",
+              "description": "税局与 ERP 口径不一致时，优先检查含税/未税口径、税额拆分和税率版本。",
+              "checks": [
+                "CHECK_ERP_TAX_INCLUSIVE: ERP 使用含税口径",
+                "CHECK_TAX_PORTAL_SPLIT_FIELDS: 税局侧拆分税额与不含税金额",
+                "CHECK_REGULAR_TAX_DELTA: 差异具有规律性"
+              ],
+              "mustHitChecks": [
+                "CHECK_ERP_TAX_INCLUSIVE",
+                "CHECK_TAX_PORTAL_SPLIT_FIELDS"
+              ]
+            },
+            "primaryCauses": [
+              "tax_rule_mismatch"
+            ],
+            "needHumanReview": false,
+            "evidenceKeywords": [
+              "含税金额",
+              "税额",
+              "不含税"
+            ],
+            "actionKeywords": [
+              "统一税务口径",
+              "映射规则"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "tax_rule_gap"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_ERP_TAX_INCLUSIVE",
+                "hit": true,
+                "reason": "ERP侧按含税金额入账，符合含税口径特征"
+              },
+              {
+                "checkCode": "CHECK_TAX_PORTAL_SPLIT_FIELDS",
+                "hit": true,
+                "reason": "税局侧按税额和不含税金额分别登记，符合拆分字段特征"
+              },
+              {
+                "checkCode": "CHECK_REGULAR_TAX_DELTA",
+                "hit": true,
+                "reason": "税额和总额均有规律性差异，符合规律性差异特征"
+              }
+            ],
+            "primaryCauses": [
+              "tax_rule_mismatch"
+            ],
+            "needHumanReview": false,
+            "evidence": [
+              "ERP使用含税金额入账，税局拆分税额与不含税金额登记，导致规律性差异"
+            ],
+            "recommendedActions": [
+              "核对税局与ERP的税率口径设置，统一计税方式或调整对账逻辑"
+            ],
+            "summary": "税率口径不一致导致系统间金额差异，需统一计税规则"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "tax_rule_gap"
+            ],
+            "triggeredChecks": [
+              "check_erp_tax_inclusive",
+              "check_regular_tax_delta",
+              "check_tax_portal_split_fields"
+            ],
+            "primaryCauses": [
+              "tax_rule_mismatch"
+            ],
+            "needHumanReview": false
+          },
+          "rawText": "```json\n{\n  \"matchedSops\": [\"tax_rule_gap\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_ERP_TAX_INCLUSIVE\",\n      \"hit\": true,\n      \"reason\": \"ERP侧按含税金额入账，符合含税口径特征\"\n    },\n    {\n      \"checkCode\": \"CHECK_TAX_PORTAL_SPLIT_FIELDS\",\n      \"hit\": true,\n      \"reason\": \"税局侧按税额和不含税金额分别登记，符合拆分字段特征\"\n    },\n    {\n      \"checkCode\": \"CHECK_REGULAR_TAX_DELTA\",\n      \"hit\": true,\n      \"reason\": \"税额和总额均有规律性差异，符合规律性差异特征\"\n    }\n  ],\n  \"primaryCauses\": [\"tax_rule_mismatch\"],\n  \"needHumanReview\": false,\n  \"evidence\": [\"ERP使用含税金额入账，税局拆分税额与不含税金额登记，导致规律性差异\"],\n  \"recommendedActions\": [\"核对税局与ERP的税率口径设置，统一计税方式或调整对账逻辑\"],\n  \"summary\": \"税率口径不一致导致系统间金额差异，需统一计税规则\"\n}\n```"
+        },
+        {
+          "caseId": "DA006",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "状态时点差",
+          "score": 85,
+          "outcome": "passed",
+          "expected": {
+            "sop": {
+              "sopCode": "status_lag",
+              "description": "状态不一致但延后恢复时，优先检查同步延迟和状态更新时间窗口。",
+              "checks": [
+                "CHECK_STATUS_MISMATCH_ONLY: 主要是状态差异",
+                "CHECK_RECOVER_AFTER_RETRY: 延迟后恢复正常",
+                "CHECK_SHORT_TIME_GAP: 时间差较短"
+              ],
+              "mustHitChecks": [
+                "CHECK_RECOVER_AFTER_RETRY"
+              ]
+            },
+            "primaryCauses": [
+              "status_timing_gap",
+              "late_arrival"
+            ],
+            "needHumanReview": false,
+            "evidenceKeywords": [
+              "30分钟后",
+              "恢复正常",
+              "待支付"
+            ],
+            "actionKeywords": [
+              "延迟重试",
+              "拉长窗口"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "status_lag"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_STATUS_MISMATCH_ONLY",
+                "hit": true,
+                "reason": "支付平台状态为成功，订单系统状态为待支付或处理中，存在状态差异"
+              },
+              {
+                "checkCode": "CHECK_RECOVER_AFTER_RETRY",
+                "hit": true,
+                "reason": "延迟30分钟后再次对账大多恢复正常，符合延迟恢复特征"
+              },
+              {
+                "checkCode": "CHECK_SHORT_TIME_GAP",
+                "hit": true,
+                "reason": "时间差为30分钟，属于较短的时间间隔"
+              }
+            ],
+            "primaryCauses": [
+              "status_timing_gap"
+            ],
+            "needHumanReview": false,
+            "evidence": [
+              "支付平台已成功但订单系统仍显示待支付，30分钟后自动恢复正常"
+            ],
+            "recommendedActions": [
+              "检查状态同步机制和更新时间窗口设置，优化同步延迟"
+            ],
+            "summary": "状态同步存在30分钟延迟，属于正常的状态时点差异，建议监控同步性能"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "status_lag"
+            ],
+            "triggeredChecks": [
+              "check_recover_after_retry",
+              "check_short_time_gap",
+              "check_status_mismatch_only"
+            ],
+            "primaryCauses": [
+              "status_timing_gap"
+            ],
+            "needHumanReview": false
+          },
+          "rawText": "```json\n{\n  \"matchedSops\": [\"status_lag\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_STATUS_MISMATCH_ONLY\",\n      \"hit\": true,\n      \"reason\": \"支付平台状态为成功，订单系统状态为待支付或处理中，存在状态差异\"\n    },\n    {\n      \"checkCode\": \"CHECK_RECOVER_AFTER_RETRY\",\n      \"hit\": true,\n      \"reason\": \"延迟30分钟后再次对账大多恢复正常，符合延迟恢复特征\"\n    },\n    {\n      \"checkCode\": \"CHECK_SHORT_TIME_GAP\",\n      \"hit\": true,\n      \"reason\": \"时间差为30分钟，属于较短的时间间隔\"\n    }\n  ],\n  \"primaryCauses\": [\"status_timing_gap\"],\n  \"needHumanReview\": false,\n  \"evidence\": [\"支付平台已成功但订单系统仍显示待支付，30分钟后自动恢复正常\"],\n  \"recommendedActions\": [\"检查状态同步机制和更新时间窗口设置，优化同步延迟\"],\n  \"summary\": \"状态同步存在30分钟延迟，属于正常的状态时点差异，建议监控同步性能\"\n}\n```"
+        },
+        {
+          "caseId": "DA007",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "人工调账",
+          "score": 80,
+          "outcome": "passed",
+          "expected": {
+            "primaryCauses": [
+              "manual_adjustment"
+            ],
+            "needHumanReview": true,
+            "evidenceKeywords": [
+              "手工调整",
+              "财务"
+            ],
+            "actionKeywords": [
+              "人工复核",
+              "审批记录"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "unknown_insufficient_evidence"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_MANUAL_ADJUSTMENT",
+                "hit": true,
+                "reason": "系统检测到ERP中存在财务手工调整的凭证，导致与结算平台金额不一致"
+              }
+            ],
+            "primaryCauses": [
+              "manual_adjustment"
+            ],
+            "needHumanReview": true,
+            "evidence": [
+              "ERP中有6笔凭证被财务手工调整，与结算平台原始金额存在较大偏差"
+            ],
+            "recommendedActions": [
+              "核实手工调整的合理性和授权流程，确认调整原因并补充文档记录"
+            ],
+            "summary": "ERP财务手工调整导致与结算平台金额差异，需人工审核调整合理性"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "unknown_insufficient_evidence"
+            ],
+            "triggeredChecks": [
+              "check_manual_adjustment"
+            ],
+            "primaryCauses": [
+              "manual_adjustment"
+            ],
+            "needHumanReview": true
+          },
+          "rawText": "```json\n{\n  \"matchedSops\": [\"unknown_insufficient_evidence\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_MANUAL_ADJUSTMENT\",\n      \"hit\": true,\n      \"reason\": \"系统检测到ERP中存在财务手工调整的凭证，导致与结算平台金额不一致\"\n    }\n  ],\n  \"primaryCauses\": [\"manual_adjustment\"],\n  \"needHumanReview\": true,\n  \"evidence\": [\"ERP中有6笔凭证被财务手工调整，与结算平台原始金额存在较大偏差\"],\n  \"recommendedActions\": [\"核实手工调整的合理性和授权流程，确认调整原因并补充文档记录\"],\n  \"summary\": \"ERP财务手工调整导致与结算平台金额差异，需人工审核调整合理性\"\n}\n```"
+        },
+        {
+          "caseId": "DA008",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "字段映射错误",
+          "score": 85,
+          "outcome": "passed",
+          "expected": {
+            "sop": {
+              "sopCode": "mapping_field_error",
+              "description": "数量对得上但金额系统性偏差时，优先检查字段映射和口径字段选错。",
+              "checks": [
+                "CHECK_QTY_MATCHED: 数量一致",
+                "CHECK_AMOUNT_SYSTEMATIC_BIAS: 金额整体偏差同向",
+                "CHECK_WRONG_FIELD_MAPPED: 存在未税/含税字段误映射"
+              ],
+              "mustHitChecks": [
+                "CHECK_QTY_MATCHED",
+                "CHECK_WRONG_FIELD_MAPPED"
+              ]
+            },
+            "primaryCauses": [
+              "mapping_error",
+              "tax_rule_mismatch"
+            ],
+            "needHumanReview": false,
+            "evidenceKeywords": [
+              "映射",
+              "未税金额",
+              "含税金额"
+            ],
+            "actionKeywords": [
+              "修正映射",
+              "回放"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "mapping_field_error"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_QTY_MATCHED",
+                "hit": true,
+                "reason": "同一批次里数量都能对上"
+              },
+              {
+                "checkCode": "CHECK_AMOUNT_SYSTEMATIC_BIAS",
+                "hit": true,
+                "reason": "金额字段整体偏小"
+              },
+              {
+                "checkCode": "CHECK_WRONG_FIELD_MAPPED",
+                "hit": true,
+                "reason": "系统把未税金额映射成了含税金额字段"
+              }
+            ],
+            "primaryCauses": [
+              "mapping_error"
+            ],
+            "needHumanReview": false,
+            "evidence": [
+              "数量匹配但金额系统性偏小，确认未税金额误映射为含税金额"
+            ],
+            "recommendedActions": [
+              "检查并修正金额字段映射配置，确保未税和含税字段正确对应"
+            ],
+            "summary": "字段映射错误导致金额系统性偏差，需修正映射配置"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "mapping_field_error"
+            ],
+            "triggeredChecks": [
+              "check_amount_systematic_bias",
+              "check_qty_matched",
+              "check_wrong_field_mapped"
+            ],
+            "primaryCauses": [
+              "mapping_error"
+            ],
+            "needHumanReview": false
+          },
+          "rawText": "```json\n{\n  \"matchedSops\": [\"mapping_field_error\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_QTY_MATCHED\",\n      \"hit\": true,\n      \"reason\": \"同一批次里数量都能对上\"\n    },\n    {\n      \"checkCode\": \"CHECK_AMOUNT_SYSTEMATIC_BIAS\",\n      \"hit\": true,\n      \"reason\": \"金额字段整体偏小\"\n    },\n    {\n      \"checkCode\": \"CHECK_WRONG_FIELD_MAPPED\",\n      \"hit\": true,\n      \"reason\": \"系统把未税金额映射成了含税金额字段\"\n    }\n  ],\n  \"primaryCauses\": [\"mapping_error\"],\n  \"needHumanReview\": false,\n  \"evidence\": [\"数量匹配但金额系统性偏小，确认未税金额误映射为含税金额\"],\n  \"recommendedActions\": [\"检查并修正金额字段映射配置，确保未税和含税字段正确对应\"],\n  \"summary\": \"字段映射错误导致金额系统性偏差，需修正映射配置\"\n}\n```"
+        },
+        {
+          "caseId": "DA009",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "过滤范围不一致",
+          "score": 80,
+          "outcome": "passed",
+          "expected": {
+            "primaryCauses": [
+              "scope_filter_mismatch"
+            ],
+            "needHumanReview": false,
+            "evidenceKeywords": [
+              "美国站",
+              "加拿大站"
+            ],
+            "actionKeywords": [
+              "统一过滤条件",
+              "站点范围"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "scope_filter_mismatch"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "SCOPE_FILTER_CHECK",
+                "hit": true,
+                "reason": "订单侧与支付侧过滤范围不一致，订单仅包含美国站，支付侧包含加拿大站"
+              }
+            ],
+            "primaryCauses": [
+              "scope_filter_mismatch"
+            ],
+            "needHumanReview": false,
+            "evidence": [
+              "订单侧过滤美国站，支付侧包含加拿大站，导致支付总额偏大"
+            ],
+            "recommendedActions": [
+              "检查并统一订单与支付系统的站点过滤规则"
+            ],
+            "summary": "因站点过滤范围不一致导致金额差异，需调整过滤规则"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "scope_filter_mismatch"
+            ],
+            "triggeredChecks": [
+              "scope_filter_check"
+            ],
+            "primaryCauses": [
+              "scope_filter_mismatch"
+            ],
+            "needHumanReview": false
+          },
+          "rawText": "{\n  \"matchedSops\": [\"scope_filter_mismatch\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"SCOPE_FILTER_CHECK\",\n      \"hit\": true,\n      \"reason\": \"订单侧与支付侧过滤范围不一致，订单仅包含美国站，支付侧包含加拿大站\"\n    }\n  ],\n  \"primaryCauses\": [\"scope_filter_mismatch\"],\n  \"needHumanReview\": false,\n  \"evidence\": [\"订单侧过滤美国站，支付侧包含加拿大站，导致支付总额偏大\"],\n  \"recommendedActions\": [\"检查并统一订单与支付系统的站点过滤规则\"],\n  \"summary\": \"因站点过滤范围不一致导致金额差异，需调整过滤规则\"\n}"
+        },
+        {
+          "caseId": "DA010",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "退款冲抵",
+          "score": 40,
+          "outcome": "needs_review",
+          "expected": {
+            "primaryCauses": [
+              "refund_reversal_offset"
+            ],
+            "needHumanReview": false,
+            "evidenceKeywords": [
+              "退款",
+              "撤销",
+              "净额偏小"
+            ],
+            "actionKeywords": [
+              "拆分正逆向流水",
+              "单独对账"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "unknown_insufficient_evidence"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_SAMPLE",
+                "hit": false,
+                "reason": "证据不足，无法确定具体检查项"
+              }
+            ],
+            "primaryCauses": [
+              "unknown_insufficient_evidence"
+            ],
+            "needHumanReview": true,
+            "evidence": [
+              "系统检测到支付侧净额偏小，同日存在退款和撤销交易汇总处理"
+            ],
+            "recommendedActions": [
+              "人工核查退款和撤销交易的冲抵处理逻辑是否正确"
+            ],
+            "summary": "支付净额差异疑似由退款冲抵引起，需要人工进一步核实处理规则"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "unknown_insufficient_evidence"
+            ],
+            "triggeredChecks": [
+              "check_sample"
+            ],
+            "primaryCauses": [
+              "unknown_insufficient_evidence"
+            ],
+            "needHumanReview": true
+          },
+          "rawText": "```json\n{\n  \"matchedSops\": [\"unknown_insufficient_evidence\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_SAMPLE\",\n      \"hit\": false,\n      \"reason\": \"证据不足，无法确定具体检查项\"\n    }\n  ],\n  \"primaryCauses\": [\"unknown_insufficient_evidence\"],\n  \"needHumanReview\": true,\n  \"evidence\": [\"系统检测到支付侧净额偏小，同日存在退款和撤销交易汇总处理\"],\n  \"recommendedActions\": [\"人工核查退款和撤销交易的冲抵处理逻辑是否正确\"],\n  \"summary\": \"支付净额差异疑似由退款冲抵引起，需要人工进一步核实处理规则\"\n}\n```"
+        },
+        {
+          "caseId": "DA011",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "跨期截断",
+          "score": 83,
+          "outcome": "passed",
+          "expected": {
+            "sop": {
+              "sopCode": "cutoff_cross_period",
+              "description": "差异集中在月末跨天窗口时，优先检查截数时点和跨期补跑策略。",
+              "checks": [
+                "CHECK_MONTH_END_WINDOW: 差异集中在月末跨天窗口",
+                "CHECK_DIFF_DISAPPEAR_LATER: 后续累计对账恢复",
+                "CHECK_CUTOFF_PATTERN: 呈现明显截断特征"
+              ],
+              "mustHitChecks": [
+                "CHECK_MONTH_END_WINDOW",
+                "CHECK_DIFF_DISAPPEAR_LATER"
+              ]
+            },
+            "primaryCauses": [
+              "cross_period_cutoff",
+              "late_arrival"
+            ],
+            "needHumanReview": false,
+            "evidenceKeywords": [
+              "月末",
+              "次日",
+              "差异基本消失"
+            ],
+            "actionKeywords": [
+              "跨期窗口",
+              "补跑"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "cutoff_cross_period"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_MONTH_END_WINDOW",
+                "hit": true,
+                "reason": "差异集中在月末23:55到次日00:10之间的跨天窗口"
+              },
+              {
+                "checkCode": "CHECK_DIFF_DISAPPEAR_LATER",
+                "hit": true,
+                "reason": "次月跑累计对账后差异基本消失"
+              },
+              {
+                "checkCode": "CHECK_CUTOFF_PATTERN",
+                "hit": true,
+                "reason": "呈现明显的月末跨期截断特征"
+              }
+            ],
+            "primaryCauses": [
+              "cross_period_cutoff"
+            ],
+            "needHumanReview": false,
+            "evidence": [
+              "月末23:55到次日00:10之间的记录差异最多，次月累计对账后差异消失"
+            ],
+            "recommendedActions": [
+              "检查月末截数时点设置和跨期补跑策略，确认系统处理逻辑"
+            ],
+            "summary": "典型的跨期截断问题，月末跨天窗口记录处理存在时间差，需优化截数策略"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "cutoff_cross_period"
+            ],
+            "triggeredChecks": [
+              "check_cutoff_pattern",
+              "check_diff_disappear_later",
+              "check_month_end_window"
+            ],
+            "primaryCauses": [
+              "cross_period_cutoff"
+            ],
+            "needHumanReview": false
+          },
+          "rawText": "```json\n{\n  \"matchedSops\": [\"cutoff_cross_period\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_MONTH_END_WINDOW\",\n      \"hit\": true,\n      \"reason\": \"差异集中在月末23:55到次日00:10之间的跨天窗口\"\n    },\n    {\n      \"checkCode\": \"CHECK_DIFF_DISAPPEAR_LATER\",\n      \"hit\": true,\n      \"reason\": \"次月跑累计对账后差异基本消失\"\n    },\n    {\n      \"checkCode\": \"CHECK_CUTOFF_PATTERN\",\n      \"hit\": true,\n      \"reason\": \"呈现明显的月末跨期截断特征\"\n    }\n  ],\n  \"primaryCauses\": [\"cross_period_cutoff\"],\n  \"needHumanReview\": false,\n  \"evidence\": [\"月末23:55到次日00:10之间的记录差异最多，次月累计对账后差异消失\"],\n  \"recommendedActions\": [\"检查月末截数时点设置和跨期补跑策略，确认系统处理逻辑\"],\n  \"summary\": \"典型的跨期截断问题，月末跨天窗口记录处理存在时间差，需优化截数策略\"\n}\n```"
+        },
+        {
+          "caseId": "DA012",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "上游程序缺陷",
+          "score": 71,
+          "outcome": "needs_review",
+          "expected": {
+            "sop": {
+              "sopCode": "release_regression_fx",
+              "description": "单币种异常且与发布时间吻合时，优先检查上游发布引入的汇率或换算缺陷。",
+              "checks": [
+                "CHECK_SINGLE_CURRENCY_AFFECTED: 仅欧元异常",
+                "CHECK_SCALE_100X: 金额放大 100 倍",
+                "CHECK_RELEASE_SAME_DAY: 当天存在相关发布"
+              ],
+              "mustHitChecks": [
+                "CHECK_SINGLE_CURRENCY_AFFECTED",
+                "CHECK_RELEASE_SAME_DAY"
+              ]
+            },
+            "primaryCauses": [
+              "upstream_bug",
+              "exchange_rate_mismatch"
+            ],
+            "needHumanReview": true,
+            "evidenceKeywords": [
+              "100倍",
+              "欧元",
+              "发布记录"
+            ],
+            "actionKeywords": [
+              "回滚",
+              "排查发布",
+              "修复代码"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "release_regression_fx"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_SINGLE_CURRENCY_AFFECTED",
+                "hit": true,
+                "reason": "仅欧元订单金额异常，其他币种正常"
+              },
+              {
+                "checkCode": "CHECK_SCALE_100X",
+                "hit": true,
+                "reason": "欧元订单金额放大100倍"
+              },
+              {
+                "checkCode": "CHECK_RELEASE_SAME_DAY",
+                "hit": true,
+                "reason": "当天有汇率模块改动发布记录"
+              }
+            ],
+            "primaryCauses": [
+              "upstream_bug"
+            ],
+            "needHumanReview": false,
+            "evidence": [
+              "欧元订单金额放大100倍，当天汇率模块有发布改动"
+            ],
+            "recommendedActions": [
+              "联系开发团队回滚汇率模块改动并修复缺陷"
+            ],
+            "summary": "上游汇率模块发布导致欧元订单金额计算异常放大100倍"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "release_regression_fx"
+            ],
+            "triggeredChecks": [
+              "check_release_same_day",
+              "check_scale_100x",
+              "check_single_currency_affected"
+            ],
+            "primaryCauses": [
+              "upstream_bug"
+            ],
+            "needHumanReview": false
+          },
+          "rawText": "```json\n{\n  \"matchedSops\": [\"release_regression_fx\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_SINGLE_CURRENCY_AFFECTED\",\n      \"hit\": true,\n      \"reason\": \"仅欧元订单金额异常，其他币种正常\"\n    },\n    {\n      \"checkCode\": \"CHECK_SCALE_100X\",\n      \"hit\": true,\n      \"reason\": \"欧元订单金额放大100倍\"\n    },\n    {\n      \"checkCode\": \"CHECK_RELEASE_SAME_DAY\",\n      \"hit\": true,\n      \"reason\": \"当天有汇率模块改动发布记录\"\n    }\n  ],\n  \"primaryCauses\": [\"upstream_bug\"],\n  \"needHumanReview\": false,\n  \"evidence\": [\"欧元订单金额放大100倍，当天汇率模块有发布改动\"],\n  \"recommendedActions\": [\"联系开发团队回滚汇率模块改动并修复缺陷\"],\n  \"summary\": \"上游汇率模块发布导致欧元订单金额计算异常放大100倍\"\n}\n```"
+        },
+        {
+          "caseId": "DA013",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "证据不足",
+          "score": 83,
+          "outcome": "passed",
+          "expected": {
+            "sop": {
+              "sopCode": "insufficient_evidence",
+              "description": "当缺少样本、字段分布和时间特征时，不应强行归因，应先补证据。",
+              "checks": [
+                "CHECK_NO_SAMPLES: 没有样本",
+                "CHECK_NO_FIELD_DISTRIBUTION: 没有字段分布",
+                "CHECK_NO_TIME_PATTERN: 没有时间规律"
+              ],
+              "mustHitChecks": [
+                "CHECK_NO_SAMPLES",
+                "CHECK_NO_FIELD_DISTRIBUTION",
+                "CHECK_NO_TIME_PATTERN"
+              ]
+            },
+            "primaryCauses": [
+              "unknown_insufficient_evidence"
+            ],
+            "needHumanReview": true,
+            "evidenceKeywords": [
+              "没有样本",
+              "没有字段分布",
+              "没有时间规律"
+            ],
+            "actionKeywords": [
+              "补充样本",
+              "补充分布",
+              "人工分析"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "insufficient_evidence"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_NO_SAMPLES",
+                "hit": true,
+                "reason": "没有样本"
+              },
+              {
+                "checkCode": "CHECK_NO_FIELD_DISTRIBUTION",
+                "hit": true,
+                "reason": "没有字段分布"
+              },
+              {
+                "checkCode": "CHECK_NO_TIME_PATTERN",
+                "hit": true,
+                "reason": "没有时间规律"
+              }
+            ],
+            "primaryCauses": [
+              "unknown_insufficient_evidence"
+            ],
+            "needHumanReview": true,
+            "evidence": [
+              "金额不一致，但缺少样本、字段分布和时间规律"
+            ],
+            "recommendedActions": [
+              "补充样本数据、字段分布信息和时间特征后再分析"
+            ],
+            "summary": "证据不足，无法确定差异原因，需要进一步收集数据"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "insufficient_evidence"
+            ],
+            "triggeredChecks": [
+              "check_no_field_distribution",
+              "check_no_samples",
+              "check_no_time_pattern"
+            ],
+            "primaryCauses": [
+              "unknown_insufficient_evidence"
+            ],
+            "needHumanReview": true
+          },
+          "rawText": "{\n  \"matchedSops\": [\"insufficient_evidence\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_NO_SAMPLES\",\n      \"hit\": true,\n      \"reason\": \"没有样本\"\n    },\n    {\n      \"checkCode\": \"CHECK_NO_FIELD_DISTRIBUTION\",\n      \"hit\": true,\n      \"reason\": \"没有字段分布\"\n    },\n    {\n      \"checkCode\": \"CHECK_NO_TIME_PATTERN\",\n      \"hit\": true,\n      \"reason\": \"没有时间规律\"\n    }\n  ],\n  \"primaryCauses\": [\"unknown_insufficient_evidence\"],\n  \"needHumanReview\": true,\n  \"evidence\": [\"金额不一致，但缺少样本、字段分布和时间规律\"],\n  \"recommendedActions\": [\"补充样本数据、字段分布信息和时间特征后再分析\"],\n  \"summary\": \"证据不足，无法确定差异原因，需要进一步收集数据\"\n}"
+        },
+        {
+          "caseId": "DA014",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "数量一致但状态不一致",
+          "score": 75,
+          "outcome": "needs_review",
+          "expected": {
+            "primaryCauses": [
+              "status_timing_gap"
+            ],
+            "needHumanReview": false,
+            "evidenceKeywords": [
+              "已发货",
+              "待出库",
+              "第二天"
+            ],
+            "actionKeywords": [
+              "延迟对账",
+              "状态同步"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "unknown_insufficient_evidence"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_STATUS_MISMATCH",
+                "hit": true,
+                "reason": "WMS与订单系统数量一致但状态不一致，120笔记录存在发货状态差异"
+              }
+            ],
+            "primaryCauses": [
+              "status_timing_gap",
+              "unknown_insufficient_evidence"
+            ],
+            "needHumanReview": true,
+            "evidence": [
+              "120笔记录状态不一致：WMS已发货 vs 订单系统待出库，第二天自动恢复90%"
+            ],
+            "recommendedActions": [
+              "检查系统间状态同步机制，确认状态更新延迟原因，监控后续同步情况"
+            ],
+            "summary": "系统间状态同步存在延迟问题，大部分记录第二天自动恢复正常，需要进一步调查同步机制"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "unknown_insufficient_evidence"
+            ],
+            "triggeredChecks": [
+              "check_status_mismatch"
+            ],
+            "primaryCauses": [
+              "status_timing_gap",
+              "unknown_insufficient_evidence"
+            ],
+            "needHumanReview": true
+          },
+          "rawText": "```json\n{\n    \"matchedSops\": [\"unknown_insufficient_evidence\"],\n    \"triggeredChecks\": [\n        {\n            \"checkCode\": \"CHECK_STATUS_MISMATCH\",\n            \"hit\": true,\n            \"reason\": \"WMS与订单系统数量一致但状态不一致，120笔记录存在发货状态差异\"\n        }\n    ],\n    \"primaryCauses\": [\"status_timing_gap\", \"unknown_insufficient_evidence\"],\n    \"needHumanReview\": true,\n    \"evidence\": [\"120笔记录状态不一致：WMS已发货 vs 订单系统待出库，第二天自动恢复90%\"],\n    \"recommendedActions\": [\"检查系统间状态同步机制，确认状态更新延迟原因，监控后续同步情况\"],\n    \"summary\": \"系统间状态同步存在延迟问题，大部分记录第二天自动恢复正常，需要进一步调查同步机制\"\n}\n```"
+        },
+        {
+          "caseId": "DA015",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "发票主键口径混用",
+          "score": 70,
+          "outcome": "needs_review",
+          "expected": {
+            "primaryCauses": [
+              "key_mismatch"
+            ],
+            "needHumanReview": false,
+            "evidenceKeywords": [
+              "发票代码",
+              "发票号码",
+              "串单"
+            ],
+            "actionKeywords": [
+              "组合键",
+              "修正匹配规则"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "unknown_insufficient_evidence"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_SAMPLE",
+                "hit": true,
+                "reason": "主键定义不一致导致数据匹配错误"
+              }
+            ],
+            "primaryCauses": [
+              "key_mismatch"
+            ],
+            "needHumanReview": true,
+            "evidence": [
+              "税局使用发票代码+号码作为唯一键，ERP仅使用发票号码，导致不同发票代码下出现重复号码时串单"
+            ],
+            "recommendedActions": [
+              "统一主键定义口径，建议ERP系统增加发票代码作为联合主键"
+            ],
+            "summary": "系统间主键定义不一致导致发票数据匹配错误，需要统一主键规则"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "unknown_insufficient_evidence"
+            ],
+            "triggeredChecks": [
+              "check_sample"
+            ],
+            "primaryCauses": [
+              "key_mismatch"
+            ],
+            "needHumanReview": true
+          },
+          "rawText": "```json\n{\n  \"matchedSops\": [\"unknown_insufficient_evidence\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_SAMPLE\",\n      \"hit\": true,\n      \"reason\": \"主键定义不一致导致数据匹配错误\"\n    }\n  ],\n  \"primaryCauses\": [\"key_mismatch\"],\n  \"needHumanReview\": true,\n  \"evidence\": [\"税局使用发票代码+号码作为唯一键，ERP仅使用发票号码，导致不同发票代码下出现重复号码时串单\"],\n  \"recommendedActions\": [\"统一主键定义口径，建议ERP系统增加发票代码作为联合主键\"],\n  \"summary\": \"系统间主键定义不一致导致发票数据匹配错误，需要统一主键规则\"\n}\n```"
+        },
+        {
+          "caseId": "DA016",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "多次导入导致重复",
+          "score": 65,
+          "outcome": "needs_review",
+          "expected": {
+            "primaryCauses": [
+              "duplicate_records",
+              "upstream_bug"
+            ],
+            "needHumanReview": true,
+            "evidenceKeywords": [
+              "重试三次",
+              "重复导入"
+            ],
+            "actionKeywords": [
+              "幂等",
+              "重放策略",
+              "人工复核"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "bank_duplicate"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "DUPLICATE_CHECK",
+                "hit": true,
+                "reason": "系统重试导致结算平台同一批结算单被重复导入"
+              }
+            ],
+            "primaryCauses": [
+              "duplicate_records"
+            ],
+            "needHumanReview": true,
+            "evidence": [
+              "凌晨任务失败后重试三次，结算平台侧同一批结算单被重复导入，ERP侧只保留一份"
+            ],
+            "recommendedActions": [
+              "检查结算平台重复导入记录，确认是否需要删除重复数据或进行数据合并"
+            ],
+            "summary": "系统重试机制导致结算单重复导入，结算平台与ERP数据不一致"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "bank_duplicate"
+            ],
+            "triggeredChecks": [
+              "duplicate_check"
+            ],
+            "primaryCauses": [
+              "duplicate_records"
+            ],
+            "needHumanReview": true
+          },
+          "rawText": "```json\n{\n  \"matchedSops\": [\"bank_duplicate\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"DUPLICATE_CHECK\",\n      \"hit\": true,\n      \"reason\": \"系统重试导致结算平台同一批结算单被重复导入\"\n    }\n  ],\n  \"primaryCauses\": [\"duplicate_records\"],\n  \"needHumanReview\": true,\n  \"evidence\": [\"凌晨任务失败后重试三次，结算平台侧同一批结算单被重复导入，ERP侧只保留一份\"],\n  \"recommendedActions\": [\"检查结算平台重复导入记录，确认是否需要删除重复数据或进行数据合并\"],\n  \"summary\": \"系统重试机制导致结算单重复导入，结算平台与ERP数据不一致\"\n}\n```"
+        },
+        {
+          "caseId": "DA017",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "站点范围与状态过滤同时不一致",
+          "score": 63,
+          "outcome": "needs_review",
+          "expected": {
+            "primaryCauses": [
+              "scope_filter_mismatch"
+            ],
+            "needHumanReview": false,
+            "evidenceKeywords": [
+              "美国站",
+              "英国站",
+              "排除了取消单"
+            ],
+            "actionKeywords": [
+              "统一过滤范围",
+              "统一状态口径"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "unknown_insufficient_evidence"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_SCOPE_FILTER",
+                "hit": true,
+                "reason": "支付侧与订单侧站点范围不一致，支付包含美英双站，订单仅美国站"
+              },
+              {
+                "checkCode": "CHECK_STATUS_FILTER",
+                "hit": true,
+                "reason": "支付侧包含取消订单，订单侧排除了取消单"
+              }
+            ],
+            "primaryCauses": [
+              "scope_filter_mismatch",
+              "unknown_insufficient_evidence"
+            ],
+            "needHumanReview": true,
+            "evidence": [
+              "支付侧包含美国和英国站点数据，订单侧仅美国站",
+              "支付侧包含取消订单，订单侧过滤了取消单",
+              "总额和笔数差异均由范围过滤不一致导致"
+            ],
+            "recommendedActions": [
+              "确认正确的站点范围定义（是否应包含英国站）",
+              "统一取消订单的处理规则",
+              "检查系统过滤配置是否一致"
+            ],
+            "summary": "支付与订单系统站点范围和状态过滤规则不一致，导致数据范围不匹配产生差异"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "unknown_insufficient_evidence"
+            ],
+            "triggeredChecks": [
+              "check_scope_filter",
+              "check_status_filter"
+            ],
+            "primaryCauses": [
+              "scope_filter_mismatch",
+              "unknown_insufficient_evidence"
+            ],
+            "needHumanReview": true
+          },
+          "rawText": "```json\n{\n  \"matchedSops\": [\"unknown_insufficient_evidence\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_SCOPE_FILTER\",\n      \"hit\": true,\n      \"reason\": \"支付侧与订单侧站点范围不一致，支付包含美英双站，订单仅美国站\"\n    },\n    {\n      \"checkCode\": \"CHECK_STATUS_FILTER\", \n      \"hit\": true,\n      \"reason\": \"支付侧包含取消订单，订单侧排除了取消单\"\n    }\n  ],\n  \"primaryCauses\": [\"scope_filter_mismatch\", \"unknown_insufficient_evidence\"],\n  \"needHumanReview\": true,\n  \"evidence\": [\n    \"支付侧包含美国和英国站点数据，订单侧仅美国站\",\n    \"支付侧包含取消订单，订单侧过滤了取消单\",\n    \"总额和笔数差异均由范围过滤不一致导致\"\n  ],\n  \"recommendedActions\": [\n    \"确认正确的站点范围定义（是否应包含英国站）\",\n    \"统一取消订单的处理规则\",\n    \"检查系统过滤配置是否一致\"\n  ],\n  \"summary\": \"支付与订单系统站点范围和状态过滤规则不一致，导致数据范围不匹配产生差异\"\n}\n```"
+        },
+        {
+          "caseId": "DA018",
+          "suite": "diff_analysis_from_result_and_sop",
+          "taskType": "diff_analysis_from_result_and_sop",
+          "title": "币种一致但汇率表版本不同",
+          "score": 100,
+          "outcome": "passed",
+          "expected": {
+            "sop": {
+              "sopCode": "fx_rate_version_gap",
+              "description": "原币一致、本位币月初差异集中时，优先检查汇率表版本和生效日期。",
+              "checks": [
+                "CHECK_ORIGINAL_AMOUNT_MATCH: 原币金额一致",
+                "CHECK_LOCAL_AMOUNT_DIFF: 本位币金额不一致",
+                "CHECK_FX_EFFECTIVE_DATE_DIFF: 汇率生效日期不同"
+              ],
+              "mustHitChecks": [
+                "CHECK_LOCAL_AMOUNT_DIFF",
+                "CHECK_FX_EFFECTIVE_DATE_DIFF"
+              ]
+            },
+            "primaryCauses": [
+              "exchange_rate_mismatch"
+            ],
+            "needHumanReview": false,
+            "evidenceKeywords": [
+              "本位币",
+              "月初",
+              "汇率表",
+              "生效日期"
+            ],
+            "actionKeywords": [
+              "统一汇率版本",
+              "汇率生效日"
+            ]
+          },
+          "actual": {
+            "matchedSops": [
+              "fx_rate_version_gap"
+            ],
+            "triggeredChecks": [
+              {
+                "checkCode": "CHECK_ORIGINAL_AMOUNT_MATCH",
+                "hit": true,
+                "reason": "原币金额和币种都一致"
+              },
+              {
+                "checkCode": "CHECK_LOCAL_AMOUNT_DIFF",
+                "hit": true,
+                "reason": "本位币金额存在差异"
+              },
+              {
+                "checkCode": "CHECK_FX_EFFECTIVE_DATE_DIFF",
+                "hit": true,
+                "reason": "两个系统使用的汇率表生效日期不同"
+              }
+            ],
+            "primaryCauses": [
+              "exchange_rate_mismatch"
+            ],
+            "needHumanReview": false,
+            "evidence": [
+              "月初本位币差异集中，汇率表生效日期不一致"
+            ],
+            "recommendedActions": [
+              "核对并统一汇率表版本与生效日期"
+            ],
+            "summary": "汇率表版本差异导致月初本位币金额不一致"
+          },
+          "scoreDetails": {
+            "matchedSops": [
+              "fx_rate_version_gap"
+            ],
+            "triggeredChecks": [
+              "check_fx_effective_date_diff",
+              "check_local_amount_diff",
+              "check_original_amount_match"
+            ],
+            "primaryCauses": [
+              "exchange_rate_mismatch"
+            ],
+            "needHumanReview": false
+          },
+          "rawText": "{\n  \"matchedSops\": [\"fx_rate_version_gap\"],\n  \"triggeredChecks\": [\n    {\n      \"checkCode\": \"CHECK_ORIGINAL_AMOUNT_MATCH\",\n      \"hit\": true,\n      \"reason\": \"原币金额和币种都一致\"\n    },\n    {\n      \"checkCode\": \"CHECK_LOCAL_AMOUNT_DIFF\",\n      \"hit\": true,\n      \"reason\": \"本位币金额存在差异\"\n    },\n    {\n      \"checkCode\": \"CHECK_FX_EFFECTIVE_DATE_DIFF\",\n      \"hit\": true,\n      \"reason\": \"两个系统使用的汇率表生效日期不同\"\n    }\n  ],\n  \"primaryCauses\": [\"exchange_rate_mismatch\"],\n  \"needHumanReview\": false,\n  \"evidence\": [\"月初本位币差异集中，汇率表生效日期不一致\"],\n  \"recommendedActions\": [\"核对并统一汇率表版本与生效日期\"],\n  \"summary\": \"汇率表版本差异导致月初本位币金额不一致\"\n}"
+        }
+      ]
+    }
+  }
+}

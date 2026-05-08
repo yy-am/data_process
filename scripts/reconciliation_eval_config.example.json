@@ -1,0 +1,34 @@
+[
+  {
+    "label": "deepseek",
+    "provider": "openai_compatible_chat",
+    "endpointUrl": "https://your-deepseek-endpoint/v1/chat/completions",
+    "modelName": "deepseek-chat",
+    "apiKeyEnv": "EVAL_MODEL_API_KEY_DEEPSEEK",
+    "timeoutSeconds": 90
+  },
+  {
+    "label": "glm5",
+    "provider": "openai_compatible_chat",
+    "endpointUrl": "https://your-glm-endpoint/v1/chat/completions",
+    "modelName": "glm-5",
+    "apiKeyEnv": "EVAL_MODEL_API_KEY_GLM5",
+    "timeoutSeconds": 120
+  },
+  {
+    "label": "qwen3-32b",
+    "provider": "openai_compatible_chat",
+    "endpointUrl": "https://your-qwen-endpoint/v1/chat/completions",
+    "modelName": "qwen3-32b",
+    "apiKeyEnv": "EVAL_MODEL_API_KEY_QWEN3_32B",
+    "timeoutSeconds": 120
+  },
+  {
+    "label": "qwen-v3.5-35b",
+    "provider": "openai_compatible_chat",
+    "endpointUrl": "https://your-qwen-endpoint/v1/chat/completions",
+    "modelName": "qwen-v3.5-35b",
+    "apiKeyEnv": "EVAL_MODEL_API_KEY_QWEN_V35_35B",
+    "timeoutSeconds": 120
+  }
+]

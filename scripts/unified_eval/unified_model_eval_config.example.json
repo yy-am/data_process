@@ -1,0 +1,26 @@
+{
+  "models": [
+    {
+      "label": "deepseek-v3.1",
+      "provider": "openai_compatible_chat",
+      "endpointUrl": "https://jeniya.cn/v1/chat/completions",
+      "modelName": "deepseek-v3.1",
+      "apiKeyEnv": "POC_MODEL_API_KEY_A",
+      "timeoutSeconds": 90,
+      "enabled": true
+    },
+    {
+      "label": "glm-5.1",
+      "provider": "openai_compatible_chat",
+      "endpointUrl": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+      "modelName": "glm-5.1",
+      "apiKeyEnv": "POC_MODEL_API_KEY_B",
+      "timeoutSeconds": 120,
+      "enabled": false
+    }
+  ],
+  "dataProcessing": {
+    "baseUrl": "http://127.0.0.1:8000"
+  },
+  "suitesManifest": "scripts/unified_eval/eval_cases/manifest.json"
+}

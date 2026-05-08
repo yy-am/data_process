@@ -1,0 +1,123 @@
+[
+  {
+    "id": "DP001",
+    "suite": "data_processing_template_identification",
+    "fileName": "input_payment_us_clean.xlsx",
+    "caseType": "standard_match",
+    "expectedTemplate": "PAYMENT_INVOICE_STANDARD_US",
+    "expectedScene": "payment",
+    "expectedCountry": "us",
+    "title": "美国付款发票标准表头样例",
+    "description": "标准付款发票样例，表头与知识库模板完全对齐。"
+  },
+  {
+    "id": "DP002",
+    "suite": "data_processing_template_identification",
+    "fileName": "input_payment_us_variant_headers.xlsx",
+    "caseType": "variant_headers",
+    "expectedTemplate": "PAYMENT_INVOICE_STANDARD_US",
+    "expectedScene": "payment",
+    "expectedCountry": "us",
+    "title": "美国付款发票变体表头样例",
+    "description": "用于测试付款发票场景下的变体表头识别。"
+  },
+  {
+    "id": "DP003",
+    "suite": "data_processing_template_identification",
+    "fileName": "input_payment_us_similar_headers_v2.xlsx",
+    "caseType": "similar_headers",
+    "expectedTemplate": "PAYMENT_INVOICE_STANDARD_US",
+    "expectedScene": "payment",
+    "expectedCountry": "us",
+    "title": "美国付款发票相似表头样例二",
+    "description": "付款发票场景的第二组相似表头样例。"
+  },
+  {
+    "id": "DP004",
+    "suite": "data_processing_template_identification",
+    "fileName": "input_customs_cn_clean.xlsx",
+    "caseType": "standard_match",
+    "expectedTemplate": "CUSTOMS_DECLARATION_STANDARD_CN",
+    "expectedScene": "customs",
+    "expectedCountry": "cn",
+    "title": "中国报关单标准表头样例",
+    "description": "标准报关单样例。"
+  },
+  {
+    "id": "DP005",
+    "suite": "data_processing_template_identification",
+    "fileName": "input_customs_cn_similar_headers_v2.xlsx",
+    "caseType": "similar_headers",
+    "expectedTemplate": "CUSTOMS_DECLARATION_STANDARD_CN",
+    "expectedScene": "customs",
+    "expectedCountry": "cn",
+    "title": "中国报关单相似表头样例二",
+    "description": "报关单场景的第二组相似表头样例。"
+  },
+  {
+    "id": "DP006",
+    "suite": "data_processing_template_identification",
+    "fileName": "input_vendor_eu_variant.xlsx",
+    "caseType": "variant_headers",
+    "expectedTemplate": "VENDOR_SETTLEMENT_STANDARD_EU",
+    "expectedScene": "settlement",
+    "expectedCountry": "eu",
+    "title": "欧洲供应商结算变体表头样例",
+    "description": "用于测试供应商结算场景下的变体表头识别。"
+  },
+  {
+    "id": "DP007",
+    "suite": "data_processing_template_identification",
+    "fileName": "input_settlement_eu_similar_headers_v2.xlsx",
+    "caseType": "similar_headers",
+    "expectedTemplate": "VENDOR_SETTLEMENT_STANDARD_EU",
+    "expectedScene": "settlement",
+    "expectedCountry": "eu",
+    "title": "欧洲供应商结算相似表头样例二",
+    "description": "欧洲结算场景的第二组相似表头样例。"
+  },
+  {
+    "id": "DP008",
+    "suite": "data_processing_template_identification",
+    "fileName": "input_fulfillment_jp_22cols_variant.xlsx",
+    "caseType": "complex_headers",
+    "expectedTemplate": "ORDER_FULFILLMENT_STANDARD_JP",
+    "expectedScene": "fulfillment",
+    "expectedCountry": "jp",
+    "title": "日本履约单 22 列变体样例",
+    "description": "列数较多的复杂履约场景样例。"
+  },
+  {
+    "id": "DP009",
+    "suite": "data_processing_template_identification",
+    "fileName": "input_rebate_mx_similar_headers_v2.xlsx",
+    "caseType": "complex_mapping_prelude",
+    "expectedTemplate": "REBATE_MX_TEMPLATE",
+    "expectedScene": "rebate",
+    "expectedCountry": "mx",
+    "title": "墨西哥返利相似表头样例二",
+    "description": "用于测试返利场景模板解析的相似表头样例。"
+  },
+  {
+    "id": "DP010",
+    "suite": "data_processing_template_identification",
+    "fileName": "input_rebate_mx_unrelated_headers_22cols.xlsx",
+    "caseType": "complex_mapping_prelude",
+    "expectedTemplate": "CHANNEL_REBATE_STANDARD_MX",
+    "expectedScene": "rebate",
+    "expectedCountry": "mx",
+    "title": "墨西哥渠道返利 22 列复杂样例",
+    "description": "需要依赖模板目录进行选择的大列数返利样例。"
+  },
+  {
+    "id": "DP011",
+    "suite": "data_processing_template_identification",
+    "fileName": "input_ambiguous_trade_document.xlsx",
+    "caseType": "ambiguous_case",
+    "expectedTemplate": null,
+    "expectedScene": null,
+    "expectedCountry": null,
+    "title": "歧义贸易单据样例",
+    "description": "故意构造的歧义样例，预期要求人工确认。"
+  }
+]

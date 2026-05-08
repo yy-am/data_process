@@ -1,0 +1,444 @@
+[
+  {
+    "id": "JC001",
+    "taskType": "job_creation_from_scene",
+    "title": "电商订单与支付流水日对账",
+    "input": "帮我创建一个每天早上8点跑的对账作业，把电商平台订单和支付网关流水对一下，按订单号匹配，重点看支付金额和支付状态，金额允许差1分钱。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": false,
+      "systems": [
+        "ecommerce",
+        "payment_gateway"
+      ],
+      "matchKeys": [
+        "order_id"
+      ],
+      "compareMetrics": [
+        "amount",
+        "status"
+      ],
+      "schedule": [
+        "daily"
+      ],
+      "tolerances": [
+        "amount"
+      ]
+    }
+  },
+  {
+    "id": "JC002",
+    "taskType": "job_creation_from_scene",
+    "title": "ERP 应收与总账月末对账",
+    "input": "需要一个月末对账任务，核对ERP应收子账和总账凭证，按客户编码和发票号匹配，检查金额、税额。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": false,
+      "systems": [
+        "erp",
+        "general_ledger"
+      ],
+      "matchKeys": [
+        "customer_id",
+        "invoice_id"
+      ],
+      "compareMetrics": [
+        "amount",
+        "tax"
+      ],
+      "schedule": [
+        "monthly"
+      ],
+      "tolerances": []
+    }
+  },
+  {
+    "id": "JC003",
+    "taskType": "job_creation_from_scene",
+    "title": "银行回单与 ERP 收款核销",
+    "input": "做一个银行到账和ERP收款核销的对账，每天一次，按流水号匹配，主要看到账金额。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": false,
+      "systems": [
+        "bank",
+        "erp"
+      ],
+      "matchKeys": [
+        "transaction_id"
+      ],
+      "compareMetrics": [
+        "amount"
+      ],
+      "schedule": [
+        "daily"
+      ],
+      "tolerances": []
+    }
+  },
+  {
+    "id": "JC004",
+    "taskType": "job_creation_from_scene",
+    "title": "退款单与支付退款流水",
+    "input": "给我建个退款对账，订单系统和支付平台之间的退款数据要核对，按退款单号，金额不能有差异。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": false,
+      "systems": [
+        "ecommerce",
+        "payment_gateway"
+      ],
+      "matchKeys": [
+        "refund_id"
+      ],
+      "compareMetrics": [
+        "amount"
+      ],
+      "schedule": [
+        "adhoc"
+      ],
+      "tolerances": [
+        "amount"
+      ]
+    }
+  },
+  {
+    "id": "JC005",
+    "taskType": "job_creation_from_scene",
+    "title": "仓储出库与订单履约",
+    "input": "我想对一下WMS出库和电商订单履约，按订单号和SKU匹配，每小时跑一次，检查数量和状态。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": false,
+      "systems": [
+        "wms",
+        "ecommerce"
+      ],
+      "matchKeys": [
+        "order_id",
+        "sku"
+      ],
+      "compareMetrics": [
+        "quantity",
+        "status"
+      ],
+      "schedule": [
+        "intraday"
+      ],
+      "tolerances": []
+    }
+  },
+  {
+    "id": "JC006",
+    "taskType": "job_creation_from_scene",
+    "title": "跨币种结算对账",
+    "input": "建一个供应商结算对账任务，对账平台和ERP之间按结算单号匹配，对比原币金额、本位币金额和币种，每周一跑。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": false,
+      "systems": [
+        "settlement_platform",
+        "erp"
+      ],
+      "matchKeys": [
+        "settlement_id"
+      ],
+      "compareMetrics": [
+        "amount",
+        "currency"
+      ],
+      "schedule": [
+        "weekly"
+      ],
+      "tolerances": []
+    }
+  },
+  {
+    "id": "JC007",
+    "taskType": "job_creation_from_scene",
+    "title": "海关申报与 ERP 报关单",
+    "input": "帮我配一个报关数据对账，海关系统和ERP里的报关单进行核对，按报关单号，检查金额、税额和状态。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": false,
+      "systems": [
+        "customs",
+        "erp"
+      ],
+      "matchKeys": [
+        "declaration_id"
+      ],
+      "compareMetrics": [
+        "amount",
+        "tax",
+        "status"
+      ],
+      "schedule": [
+        "adhoc"
+      ],
+      "tolerances": []
+    }
+  },
+  {
+    "id": "JC008",
+    "taskType": "job_creation_from_scene",
+    "title": "税局发票与 ERP 销项",
+    "input": "做一个税局发票和ERP销项发票的对账，按发票代码+发票号码匹配，日跑，核对税额和价税合计。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": false,
+      "systems": [
+        "tax_portal",
+        "erp"
+      ],
+      "matchKeys": [
+        "invoice_code",
+        "invoice_id"
+      ],
+      "compareMetrics": [
+        "tax",
+        "amount"
+      ],
+      "schedule": [
+        "daily"
+      ],
+      "tolerances": []
+    }
+  },
+  {
+    "id": "JC009",
+    "taskType": "job_creation_from_scene",
+    "title": "POS 与总账汇总核对",
+    "input": "每天闭店后，把POS销售汇总和总账收入凭证核一下，按门店和营业日期匹配，看销售额和单数。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": false,
+      "systems": [
+        "pos",
+        "general_ledger"
+      ],
+      "matchKeys": [
+        "store_id",
+        "biz_date"
+      ],
+      "compareMetrics": [
+        "amount",
+        "order_count"
+      ],
+      "schedule": [
+        "daily"
+      ],
+      "tolerances": []
+    }
+  },
+  {
+    "id": "JC010",
+    "taskType": "job_creation_from_scene",
+    "title": "模糊来源系统",
+    "input": "给我建一个对账任务，把订单和流水对一下，按单号匹配。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": true,
+      "systems": [],
+      "matchKeys": [
+        "order_id"
+      ],
+      "compareMetrics": [],
+      "schedule": [],
+      "tolerances": []
+    }
+  },
+  {
+    "id": "JC011",
+    "taskType": "job_creation_from_scene",
+    "title": "缺少匹配键",
+    "input": "我想核对银行和ERP的收款金额，每天跑，但是先不要按金额差异报警。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": true,
+      "systems": [
+        "bank",
+        "erp"
+      ],
+      "matchKeys": [],
+      "compareMetrics": [
+        "amount"
+      ],
+      "schedule": [
+        "daily"
+      ],
+      "tolerances": []
+    }
+  },
+  {
+    "id": "JC012",
+    "taskType": "job_creation_from_scene",
+    "title": "自然语言同义表达",
+    "input": "做个支付对账作业，商城侧和三方支付侧的记录按商户订单号勾稽，每天凌晨跑，比较实收金额和结果状态。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": false,
+      "systems": [
+        "ecommerce",
+        "payment_gateway"
+      ],
+      "matchKeys": [
+        "order_id"
+      ],
+      "compareMetrics": [
+        "amount",
+        "status"
+      ],
+      "schedule": [
+        "daily"
+      ],
+      "tolerances": []
+    }
+  },
+  {
+    "id": "JC013",
+    "taskType": "job_creation_from_scene",
+    "title": "中英文混输",
+    "input": "Please create a daily reconciliation job between bank statement and ERP cash receipt, match by transaction id, compare amount and status.",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": false,
+      "systems": [
+        "bank",
+        "erp"
+      ],
+      "matchKeys": [
+        "transaction_id"
+      ],
+      "compareMetrics": [
+        "amount",
+        "status"
+      ],
+      "schedule": [
+        "daily"
+      ],
+      "tolerances": []
+    }
+  },
+  {
+    "id": "JC014",
+    "taskType": "job_creation_from_scene",
+    "title": "包含过滤条件",
+    "input": "帮我建一个只看美国站订单的支付对账任务，电商订单对支付流水，按订单号匹配，每天跑，过滤取消单。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": false,
+      "systems": [
+        "ecommerce",
+        "payment_gateway"
+      ],
+      "matchKeys": [
+        "order_id"
+      ],
+      "compareMetrics": [],
+      "schedule": [
+        "daily"
+      ],
+      "tolerances": [],
+      "filters": [
+        "us",
+        "exclude_cancelled"
+      ]
+    }
+  },
+  {
+    "id": "JC015",
+    "taskType": "job_creation_from_scene",
+    "title": "日期容差窗口",
+    "input": "做银行到账和订单支付成功的对账，按订单号匹配，允许到账日期晚两天，金额必须一致，每天跑。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": false,
+      "systems": [
+        "bank",
+        "ecommerce"
+      ],
+      "matchKeys": [
+        "order_id"
+      ],
+      "compareMetrics": [
+        "amount"
+      ],
+      "schedule": [
+        "daily"
+      ],
+      "tolerances": [
+        "amount",
+        "date"
+      ]
+    }
+  },
+  {
+    "id": "JC016",
+    "taskType": "job_creation_from_scene",
+    "title": "多键匹配和费用比较",
+    "input": "给供应商结算建一个对账任务，ERP和结算平台之间按供应商编码、结算月份、结算单号匹配，比较结算金额和手续费。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": false,
+      "systems": [
+        "erp",
+        "settlement_platform"
+      ],
+      "matchKeys": [
+        "vendor_id",
+        "settlement_month",
+        "settlement_id"
+      ],
+      "compareMetrics": [
+        "amount",
+        "fee"
+      ],
+      "schedule": [
+        "adhoc"
+      ],
+      "tolerances": []
+    }
+  },
+  {
+    "id": "JC017",
+    "taskType": "job_creation_from_scene",
+    "title": "冲突指令",
+    "input": "我要建一个日对账，但每周一再跑一次完整对账，系统是银行和ERP，按流水号匹配。",
+    "expected": {
+      "intent": "create_reconciliation_job_from_existing_scene",
+      "needClarification": true,
+      "systems": [
+        "bank",
+        "erp"
+      ],
+      "matchKeys": [
+        "transaction_id"
+      ],
+      "compareMetrics": [],
+      "schedule": [
+        "daily",
+        "weekly"
+      ],
+      "tolerances": []
+    }
+  },
+  {
+    "id": "JC018",
+    "taskType": "job_creation_from_scene",
+    "title": "明确要求不要创建",
+    "input": "先别创建任务，只是告诉我银行和ERP收款对账一般按什么字段匹配。",
+    "expected": {
+      "intent": "consultation_only",
+      "needClarification": false,
+      "systems": [
+        "bank",
+        "erp"
+      ],
+      "matchKeys": [],
+      "compareMetrics": [],
+      "schedule": [],
+      "tolerances": []
+    }
+  }
+]

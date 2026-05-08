@@ -12,5 +12,7 @@ storage/
 tmp_catalog_spec.xlsx
 reports/
 scripts/model_eval_config.json
+scripts/unified_eval/unified_model_eval_config.local.json
+scripts/unified_eval/reports/
 
 .DS_Store

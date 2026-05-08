@@ -1,0 +1,23 @@
+[
+  {
+    "suite": "data_processing_template_identification",
+    "displayName": "Data Processing Template Identification",
+    "suiteType": "data_processing_template_identification",
+    "casesFile": "scripts/unified_eval/eval_cases/data_processing_template_identification.json",
+    "enabled": true
+  },
+  {
+    "suite": "job_creation_from_scene",
+    "displayName": "Reconciliation Job Creation From Existing Scene",
+    "suiteType": "job_creation_from_scene",
+    "casesFile": "scripts/unified_eval/eval_cases/reconciliation_job_creation_from_scene.json",
+    "enabled": true
+  },
+  {
+    "suite": "diff_analysis_from_result_and_sop",
+    "displayName": "Diff Analysis From Result And SOP",
+    "suiteType": "diff_analysis_from_result_and_sop",
+    "casesFile": "scripts/unified_eval/eval_cases/reconciliation_diff_analysis_from_result_and_sop.json",
+    "enabled": true
+  }
+]

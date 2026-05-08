@@ -1,0 +1,10 @@
+[
+  {
+    "label": "deepseek-v3.1",
+    "provider": "openai_compatible_chat",
+    "endpointUrl": "https://jeniya.cn/v1/chat/completions",
+    "modelName": "deepseek-v3.1",
+    "apiKeyEnv": "POC_MODEL_API_KEY_A",
+    "timeoutSeconds": 90
+  }
+]
