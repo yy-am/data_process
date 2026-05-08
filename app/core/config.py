@@ -11,6 +11,8 @@ class TemplateIdentificationClientConfig:
     endpoint_url: str | None = None
     api_key_env_var: str | None = None
     api_key: str | None = None
+    authorization_header_env_var: str | None = None
+    authorization_header: str | None = None
     include_response_format: bool = True
 
 

@@ -35,6 +35,8 @@ class RuntimeConfigService:
             endpoint_url=request.endpoint_url,
             api_key_env_var=request.api_key_env_var,
             api_key=request.api_key,
+            authorization_header_env_var=request.authorization_header_env_var,
+            authorization_header=request.authorization_header,
             include_response_format=request.include_response_format,
         )
         runtime_config = self.runtime_config_repository.update_template_identification_config(config)
@@ -57,6 +59,8 @@ class RuntimeConfigService:
             endpoint_url=request.endpoint_url,
             api_key_env_var=request.api_key_env_var,
             api_key=request.api_key,
+            authorization_header_env_var=request.authorization_header_env_var,
+            authorization_header=request.authorization_header,
             include_response_format=request.include_response_format,
         )
         runtime_config = self.runtime_config_repository.update_rule_draft_config(config)
@@ -79,6 +83,8 @@ class RuntimeConfigService:
             endpoint_url=request.endpoint_url,
             api_key_env_var=request.api_key_env_var,
             api_key=request.api_key,
+            authorization_header_env_var=request.authorization_header_env_var,
+            authorization_header=request.authorization_header,
             include_response_format=request.include_response_format,
         )
         runtime_config = self.runtime_config_repository.update_image_ocr_config(config)
@@ -96,6 +102,8 @@ class RuntimeConfigService:
             endpointUrl=config.endpoint_url,
             apiKeyEnvVar=config.api_key_env_var,
             hasApiKey=bool(config.api_key),
+            authorizationHeaderEnvVar=config.authorization_header_env_var,
+            hasAuthorizationHeader=bool(config.authorization_header),
             includeResponseFormat=config.include_response_format,
         )
 
@@ -111,6 +119,8 @@ class RuntimeConfigService:
             endpointUrl=config.endpoint_url,
             apiKeyEnvVar=config.api_key_env_var,
             hasApiKey=bool(config.api_key),
+            authorizationHeaderEnvVar=config.authorization_header_env_var,
+            hasAuthorizationHeader=bool(config.authorization_header),
             includeResponseFormat=config.include_response_format,
         )
 
@@ -126,5 +136,7 @@ class RuntimeConfigService:
             endpointUrl=config.endpoint_url,
             apiKeyEnvVar=config.api_key_env_var,
             hasApiKey=bool(config.api_key),
+            authorizationHeaderEnvVar=config.authorization_header_env_var,
+            hasAuthorizationHeader=bool(config.authorization_header),
             includeResponseFormat=config.include_response_format,
         )

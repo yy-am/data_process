@@ -55,6 +55,7 @@ class ModelConfig:
     endpoint_url: str
     model_name: str
     api_key: str
+    authorization_header: str | None
     timeout_seconds: int
     include_response_format: bool = True
 
@@ -173,15 +174,22 @@ def load_unified_config(config_path: Path) -> tuple[list[ModelConfig], list[Suit
         api_key_env = item.get("apiKeyEnv")
         if not api_key and api_key_env:
             api_key = os.environ.get(api_key_env)
-        if not api_key:
-            raise RuntimeError(f"Model {item.get('label') or item.get('modelName')} missing apiKey or apiKeyEnv.")
+        authorization_header = item.get("authorizationHeader")
+        authorization_header_env = item.get("authorizationHeaderEnv")
+        if not authorization_header and authorization_header_env:
+            authorization_header = os.environ.get(authorization_header_env)
+        if not api_key and not authorization_header:
+            raise RuntimeError(
+                f"Model {item.get('label') or item.get('modelName')} missing apiKey/apiKeyEnv or authorizationHeader/authorizationHeaderEnv."
+            )
         models.append(
             ModelConfig(
                 label=item.get("label") or item["modelName"],
                 provider=item.get("provider", "openai_compatible_chat"),
                 endpoint_url=item["endpointUrl"],
                 model_name=item["modelName"],
-                api_key=api_key,
+                api_key=api_key or "",
+                authorization_header=authorization_header,
                 timeout_seconds=int(item.get("timeoutSeconds", 90)),
                 include_response_format=bool(item.get("includeResponseFormat", True)),
             )
@@ -229,6 +237,20 @@ def mask_api_key(api_key: str) -> str:
     return f"{api_key[:6]}***{api_key[-4:]}"
 
 
+def mask_secret(secret: str) -> str:
+    if len(secret) <= 10:
+        return "*" * len(secret)
+    return f"{secret[:6]}***{secret[-4:]}"
+
+
+def resolve_authorization_header(config: ModelConfig) -> str | None:
+    if config.authorization_header:
+        return config.authorization_header
+    if config.api_key:
+        return f"Bearer {config.api_key}"
+    return None
+
+
 def build_chat_request_payload(
     system_prompt: str,
     user_prompt: str,
@@ -255,12 +277,13 @@ def build_chat_request_debug(config: ModelConfig, system_prompt: str, user_promp
         config.model_name,
         include_response_format=config.include_response_format,
     )
+    authorization_header = resolve_authorization_header(config)
     return {
         "endpointUrl": config.endpoint_url,
         "provider": config.provider,
         "headers": {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {mask_api_key(config.api_key)}",
+            **({"Authorization": mask_secret(authorization_header)} if authorization_header else {}),
         },
         "body": payload,
     }
@@ -270,8 +293,10 @@ def call_openai_compatible_chat(config: ModelConfig, system_prompt: str, user_pr
     request_debug = build_chat_request_debug(config, system_prompt, user_prompt)
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {config.api_key}",
     }
+    authorization_header = resolve_authorization_header(config)
+    if authorization_header:
+        headers["Authorization"] = authorization_header
     body = json.dumps(request_debug["body"], ensure_ascii=False).encode("utf-8")
     http_request = request.Request(
         url=config.endpoint_url,
@@ -568,6 +593,7 @@ def configure_template_model(client: ApiClient, config: ModelConfig) -> None:
         "model": config.model_name,
         "endpointUrl": config.endpoint_url,
         "apiKey": config.api_key,
+        "authorizationHeader": config.authorization_header,
         "timeoutSeconds": config.timeout_seconds,
         "includeResponseFormat": config.include_response_format,
     }
@@ -601,6 +627,7 @@ def summarize_model(model: ModelConfig, suite_results: dict[str, list[dict[str, 
         "modelName": model.model_name,
         "endpointUrl": model.endpoint_url,
         "timeoutSeconds": model.timeout_seconds,
+        "hasAuthorizationHeader": bool(model.authorization_header),
         "includeResponseFormat": model.include_response_format,
         "overall": overall,
         "bySuite": by_suite,

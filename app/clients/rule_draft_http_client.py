@@ -50,9 +50,9 @@ class RuntimeConfiguredRuleDraftClient:
         request_payload: RuleDraftRequest,
     ) -> dict[str, Any]:
         headers = {"Content-Type": "application/json"}
-        api_key = self._resolve_api_key(config)
-        if api_key:
-            headers["Authorization"] = f"Bearer {api_key}"
+        authorization_header = self._resolve_authorization_header(config)
+        if authorization_header:
+            headers["Authorization"] = authorization_header
         payload = {
             "model": config.model,
             "temperature": 0,
@@ -141,4 +141,21 @@ class RuntimeConfiguredRuleDraftClient:
                     status_code=503,
                 )
             return api_key
+        return None
+
+    def _resolve_authorization_header(self, config: TemplateIdentificationClientConfig) -> str | None:
+        if config.authorization_header:
+            return config.authorization_header
+        if config.authorization_header_env_var:
+            header_value = os.getenv(config.authorization_header_env_var)
+            if not header_value:
+                raise DomainError(
+                    code="LLM_CLIENT_NOT_CONFIGURED",
+                    message=f"Environment variable {config.authorization_header_env_var} is not set.",
+                    status_code=503,
+                )
+            return header_value
+        api_key = self._resolve_api_key(config)
+        if api_key:
+            return f"Bearer {api_key}"
         return None

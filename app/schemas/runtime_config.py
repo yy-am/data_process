@@ -12,6 +12,8 @@ class TemplateIdentificationRuntimeConfigRequest(APIModel):
     endpoint_url: str | None = Field(default=None, alias="endpointUrl")
     api_key_env_var: str | None = Field(default=None, alias="apiKeyEnvVar")
     api_key: str | None = Field(default=None, alias="apiKey")
+    authorization_header_env_var: str | None = Field(default=None, alias="authorizationHeaderEnvVar")
+    authorization_header: str | None = Field(default=None, alias="authorizationHeader")
     include_response_format: bool = Field(default=True, alias="includeResponseFormat")
 
 
@@ -22,6 +24,8 @@ class TemplateIdentificationRuntimeConfigResponse(APIModel):
     endpoint_url: str | None = Field(default=None, alias="endpointUrl")
     api_key_env_var: str | None = Field(default=None, alias="apiKeyEnvVar")
     has_api_key: bool = Field(alias="hasApiKey")
+    authorization_header_env_var: str | None = Field(default=None, alias="authorizationHeaderEnvVar")
+    has_authorization_header: bool = Field(alias="hasAuthorizationHeader")
     include_response_format: bool = Field(default=True, alias="includeResponseFormat")
 
 
@@ -32,6 +36,8 @@ class RuleDraftRuntimeConfigRequest(APIModel):
     endpoint_url: str | None = Field(default=None, alias="endpointUrl")
     api_key_env_var: str | None = Field(default=None, alias="apiKeyEnvVar")
     api_key: str | None = Field(default=None, alias="apiKey")
+    authorization_header_env_var: str | None = Field(default=None, alias="authorizationHeaderEnvVar")
+    authorization_header: str | None = Field(default=None, alias="authorizationHeader")
     include_response_format: bool = Field(default=True, alias="includeResponseFormat")
 
 
@@ -42,6 +48,8 @@ class RuleDraftRuntimeConfigResponse(APIModel):
     endpoint_url: str | None = Field(default=None, alias="endpointUrl")
     api_key_env_var: str | None = Field(default=None, alias="apiKeyEnvVar")
     has_api_key: bool = Field(alias="hasApiKey")
+    authorization_header_env_var: str | None = Field(default=None, alias="authorizationHeaderEnvVar")
+    has_authorization_header: bool = Field(alias="hasAuthorizationHeader")
     include_response_format: bool = Field(default=True, alias="includeResponseFormat")
 
 
@@ -52,6 +60,8 @@ class ImageOcrRuntimeConfigRequest(APIModel):
     endpoint_url: str | None = Field(default=None, alias="endpointUrl")
     api_key_env_var: str | None = Field(default=None, alias="apiKeyEnvVar")
     api_key: str | None = Field(default=None, alias="apiKey")
+    authorization_header_env_var: str | None = Field(default=None, alias="authorizationHeaderEnvVar")
+    authorization_header: str | None = Field(default=None, alias="authorizationHeader")
     include_response_format: bool = Field(default=True, alias="includeResponseFormat")
 
 
@@ -62,4 +72,6 @@ class ImageOcrRuntimeConfigResponse(APIModel):
     endpoint_url: str | None = Field(default=None, alias="endpointUrl")
     api_key_env_var: str | None = Field(default=None, alias="apiKeyEnvVar")
     has_api_key: bool = Field(alias="hasApiKey")
+    authorization_header_env_var: str | None = Field(default=None, alias="authorizationHeaderEnvVar")
+    has_authorization_header: bool = Field(alias="hasAuthorizationHeader")
     include_response_format: bool = Field(default=True, alias="includeResponseFormat")

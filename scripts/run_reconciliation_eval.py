@@ -53,6 +53,7 @@ class ModelConfig:
     endpoint_url: str
     model_name: str
     api_key: str
+    authorization_header: str | None
     timeout_seconds: int
     include_response_format: bool = True
 
@@ -88,15 +89,22 @@ def load_model_configs(config_file: Path) -> list[ModelConfig]:
         api_key_env = item.get("apiKeyEnv")
         if not api_key and api_key_env:
             api_key = os.getenv(api_key_env)
-        if not api_key:
-            raise RuntimeError(f"Model {item.get('label') or item.get('modelName')} missing apiKey or apiKeyEnv.")
+        authorization_header = item.get("authorizationHeader")
+        authorization_header_env = item.get("authorizationHeaderEnv")
+        if not authorization_header and authorization_header_env:
+            authorization_header = os.getenv(authorization_header_env)
+        if not api_key and not authorization_header:
+            raise RuntimeError(
+                f"Model {item.get('label') or item.get('modelName')} missing apiKey/apiKeyEnv or authorizationHeader/authorizationHeaderEnv."
+            )
         configs.append(
             ModelConfig(
                 label=item.get("label") or item["modelName"],
                 provider=item.get("provider", "openai_compatible_chat"),
                 endpoint_url=item["endpointUrl"],
                 model_name=item["modelName"],
-                api_key=api_key,
+                api_key=api_key or "",
+                authorization_header=authorization_header,
                 timeout_seconds=int(item.get("timeoutSeconds", 90)),
                 include_response_format=bool(item.get("includeResponseFormat", True)),
             )
@@ -121,8 +129,11 @@ def normalize_list(values: Any) -> set[str]:
 def call_openai_compatible_chat(config: ModelConfig, system_prompt: str, user_prompt: str) -> dict[str, Any]:
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {config.api_key}",
     }
+    if config.authorization_header:
+        headers["Authorization"] = config.authorization_header
+    elif config.api_key:
+        headers["Authorization"] = f"Bearer {config.api_key}"
     payload = {
         "model": config.model_name,
         "temperature": 0,

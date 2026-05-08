@@ -45,6 +45,8 @@
   `includeResponseFormat: true`
 - 如果供应商文档里的请求体没有 `response_format`，或者调用时出现协议不兼容报错，可改成：
   `includeResponseFormat: false`
+- 如果供应商要求的 `Authorization` 头不是 `Bearer + apiKey`，可直接配置：
+  `authorizationHeader` 或 `authorizationHeaderEnv`
 
 示例：
 
@@ -54,12 +56,20 @@
   "provider": "openai_compatible_chat",
   "endpointUrl": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
   "modelName": "glm-5.1",
-  "apiKey": "your-key",
+  "authorizationHeader": "你的完整 Authorization 头值",
   "includeResponseFormat": false,
   "timeoutSeconds": 120,
   "enabled": true
 }
 ```
+
+说明：
+
+- `apiKey` / `apiKeyEnv`
+  适用于接口要求 `Authorization: Bearer <apiKey>` 的场景
+- `authorizationHeader` / `authorizationHeaderEnv`
+  适用于接口要求自定义 `Authorization` 值的场景
+- 如果同时配置了两者，优先使用 `authorizationHeader`
 
 ## 首次运行检查
 
