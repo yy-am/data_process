@@ -538,6 +538,16 @@ def evaluate_prompt_case(config: ModelConfig, suite_type: str, case: dict[str, A
     }
 
 
+def build_prompt_request_debug(config: ModelConfig, suite_type: str, case: dict[str, Any]) -> dict[str, Any] | None:
+    if suite_type == "job_creation_from_scene":
+        system_prompt, user_prompt = build_job_creation_prompts(case)
+    elif suite_type == "diff_analysis_from_result_and_sop":
+        system_prompt, user_prompt = build_diff_analysis_prompts(case)
+    else:
+        return None
+    return build_chat_request_debug(config, system_prompt, user_prompt)
+
+
 def configure_template_model(client: ApiClient, config: ModelConfig) -> None:
     payload = {
         "provider": config.provider,
@@ -738,6 +748,9 @@ def main() -> None:
                     else:
                         result = evaluate_prompt_case(model, suite.suite_type, case)
                 except Exception as exc:  # noqa: BLE001
+                    request_debug = None
+                    if suite.suite_type != "data_processing_template_identification":
+                        request_debug = build_prompt_request_debug(model, suite.suite_type, case)
                     result = {
                         "caseId": case["id"],
                         "suite": suite.suite,
@@ -747,7 +760,10 @@ def main() -> None:
                         "outcome": "failed",
                         "expected": case.get("expected", case),
                         "actual": None,
-                        "scoreDetails": {"error": str(exc)},
+                        "scoreDetails": {
+                            "error": str(exc),
+                            **({"requestDebug": request_debug} if request_debug else {}),
+                        },
                         "rawText": None,
                     }
                 results.append(result)
