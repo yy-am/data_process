@@ -39,14 +39,26 @@
 1. `unified_model_eval_config.local.json`
 2. 若不存在，再读取 `unified_model_eval_config.json`
 
+## 首次运行检查
+
+另一台电脑首次运行前，请先确认：
+
+1. 仓库根目录下存在 `.venv\Scripts\python.exe`
+2. 如果没有 `.venv`，系统里至少安装了 `python` 或 `py`
+3. 数据加工模板识别 suite 依赖本地 `127.0.0.1:8000`
+
+根目录的 `python.cmd` 现在会按下面顺序自动找 Python：
+
+1. 仓库内 `.venv\Scripts\python.exe`
+2. `PATH` 里的 `python`
+3. `PATH` 里的 `py`
+
 ## 快速运行
 
 ### 1. 启动本地 PoC
 
-数据加工模板识别 suite 依赖本地 `127.0.0.1:8000`。
-
 ```powershell
-cd D:\lsy_projects\data_process\scripts\unified_eval
+cd D:\你的路径\data_process\scripts\unified_eval
 .\start_local_poc.ps1
 ```
 
