@@ -138,6 +138,7 @@ def call_openai_compatible_chat(config: ModelConfig, system_prompt: str, user_pr
     payload = {
         "model": config.model_name,
         "temperature": 0,
+        "stream": False,
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},

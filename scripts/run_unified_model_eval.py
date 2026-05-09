@@ -261,6 +261,7 @@ def build_chat_request_payload(
     payload = {
         "model": model_name,
         "temperature": 0,
+        "stream": False,
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},

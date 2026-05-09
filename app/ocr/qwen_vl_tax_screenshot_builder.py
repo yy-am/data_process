@@ -61,6 +61,7 @@ class QwenVlTaxScreenshotBuilder(OCRSnapshotBuilder):
         payload = {
             "model": config.model,
             "temperature": 0,
+            "stream": False,
             "messages": [
                 {"role": "system", "content": self._build_system_prompt()},
                 {

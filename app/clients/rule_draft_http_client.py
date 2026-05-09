@@ -57,6 +57,7 @@ class RuntimeConfiguredRuleDraftClient:
         payload = {
             "model": config.model,
             "temperature": 0,
+            "stream": False,
             "messages": [
                 {"role": "system", "content": request_payload.system_prompt},
                 {"role": "user", "content": request_payload.user_prompt},
