@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import sys
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -10,7 +11,6 @@ from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 UNIFIED_RUNNER_PATH = PROJECT_ROOT / "scripts" / "run_unified_model_eval.py"
-DEFAULT_CONFIG = PROJECT_ROOT / "scripts" / "unified_eval" / "unified_model_eval.json"
 DEFAULT_SAFE_CONFIG = PROJECT_ROOT / "scripts" / "unified_eval" / "unified_model_eval_config.json"
 DEFAULT_LOCAL_CONFIG = PROJECT_ROOT / "scripts" / "unified_eval" / "unified_model_eval_config.local.json"
 DEFAULT_REPORT_DIR = PROJECT_ROOT / "scripts" / "unified_eval" / "reports"
@@ -27,6 +27,7 @@ def load_runner_module():
     if spec is None or spec.loader is None:
         raise RuntimeError(f"Unable to load unified runner from {UNIFIED_RUNNER_PATH}")
     module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
     spec.loader.exec_module(module)
     return module
 

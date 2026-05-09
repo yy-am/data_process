@@ -4,6 +4,7 @@ import argparse
 import json
 import mimetypes
 import os
+import re
 import socket
 import uuid
 from dataclasses import dataclass
@@ -338,13 +339,29 @@ def extract_text(payload: dict[str, Any]) -> str:
     raise RuntimeError("Model response does not contain recognizable text content.")
 
 
-def parse_json_text(text: str) -> dict[str, Any]:
+def extract_json_payload(text: str) -> dict[str, Any]:
     normalized = text.strip()
     if normalized.startswith("```"):
         normalized = normalized.strip("`")
         if normalized.startswith("json"):
             normalized = normalized[4:].strip()
-    return json.loads(normalized)
+    normalized = re.sub(r"<think>.*?</think>", "", normalized, flags=re.DOTALL | re.IGNORECASE).strip()
+
+    decoder = json.JSONDecoder()
+    for index, ch in enumerate(normalized):
+        if ch not in "{[":
+            continue
+        try:
+            payload, _ = decoder.raw_decode(normalized[index:])
+        except json.JSONDecodeError:
+            continue
+        if isinstance(payload, dict):
+            return payload
+    raise json.JSONDecodeError("No JSON object found in text.", normalized, 0)
+
+
+def parse_json_text(text: str) -> dict[str, Any]:
+    return extract_json_payload(text)
 
 
 def build_job_creation_prompts(case: dict[str, Any]) -> tuple[str, str]:

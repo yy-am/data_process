@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import socket
 from dataclasses import dataclass
 from typing import Any
@@ -152,13 +153,8 @@ class RuntimeConfiguredTemplateIdentificationClient:
         )
 
     def _parse_result_json(self, content_text: str) -> TemplateIdentificationResult:
-        normalized = content_text.strip()
-        if normalized.startswith("```"):
-            normalized = normalized.strip("`")
-            if normalized.startswith("json"):
-                normalized = normalized[4:].strip()
         try:
-            payload = json.loads(normalized)
+            payload = self._extract_json_payload(content_text)
         except json.JSONDecodeError as exc:
             raise DomainError(
                 code="LLM_RESPONSE_INVALID",
@@ -166,6 +162,26 @@ class RuntimeConfiguredTemplateIdentificationClient:
                 status_code=502,
             ) from exc
         return TemplateIdentificationResult.model_validate(payload)
+
+    def _extract_json_payload(self, content_text: str) -> dict[str, Any]:
+        normalized = content_text.strip()
+        if normalized.startswith("```"):
+            normalized = normalized.strip("`")
+            if normalized.startswith("json"):
+                normalized = normalized[4:].strip()
+        normalized = re.sub(r"<think>.*?</think>", "", normalized, flags=re.DOTALL | re.IGNORECASE).strip()
+
+        decoder = json.JSONDecoder()
+        for index, ch in enumerate(normalized):
+            if ch not in "{[":
+                continue
+            try:
+                payload, _ = decoder.raw_decode(normalized[index:])
+            except json.JSONDecodeError:
+                continue
+            if isinstance(payload, dict):
+                return payload
+        raise json.JSONDecodeError("No JSON object found in text.", normalized, 0)
 
     def _resolve_api_key(self, config: TemplateIdentificationClientConfig) -> str | None:
         if config.api_key:
